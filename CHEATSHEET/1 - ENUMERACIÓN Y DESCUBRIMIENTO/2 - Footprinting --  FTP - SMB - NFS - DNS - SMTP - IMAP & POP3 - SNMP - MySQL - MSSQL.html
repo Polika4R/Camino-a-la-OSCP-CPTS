@@ -1,0 +1,510 @@
+<!doctype html>
+<html>
+    <head>
+        <title>2 - Footprinting --  FTP - SMB - NFS - DNS - SMTP - IMAP & POP3 - SNMP - MySQL - MSSQL</title>
+        <meta charset='utf-8'/>
+        <style>
+ .ͼ1.cm-focused {outline: 1px dotted #212121;}
+.ͼ1 {position: relative !important; box-sizing: border-box; display: flex !important; flex-direction: column;}
+.ͼ1 .cm-scroller {display: flex !important; align-items: flex-start !important; font-family: monospace; line-height: 1.4; height: 100%; overflow-x: auto; position: relative; z-index: 0; overflow-anchor: none;}
+.ͼ1 .cm-content[contenteditable=true] {-webkit-user-modify: read-write-plaintext-only;}
+.ͼ1 .cm-content {margin: 0; flex-grow: 2; flex-shrink: 0; display: block; white-space: pre; word-wrap: normal; box-sizing: border-box; min-height: 100%; padding: 4px 0; outline: none;}
+.ͼ1 .cm-lineWrapping {white-space: pre-wrap; white-space: break-spaces; word-break: break-word; overflow-wrap: anywhere; flex-shrink: 1;}
+.ͼ2 .cm-content {caret-color: black;}
+.ͼ3 .cm-content {caret-color: white;}
+.ͼ1 .cm-line {display: block; padding: 0 2px 0 6px;}
+.ͼ1 .cm-layer > * {position: absolute;}
+.ͼ1 .cm-layer {position: absolute; left: 0; top: 0; contain: size style;}
+.ͼ2 .cm-selectionBackground {background: #d9d9d9;}
+.ͼ3 .cm-selectionBackground {background: #222;}
+.ͼ2.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {background: #d7d4f0;}
+.ͼ3.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {background: #233;}
+.ͼ1 .cm-cursorLayer {pointer-events: none;}
+.ͼ1.cm-focused > .cm-scroller > .cm-cursorLayer {animation: steps(1) cm-blink 1.2s infinite;}
+@keyframes cm-blink {50% {opacity: 0;}}
+@keyframes cm-blink2 {50% {opacity: 0;}}
+.ͼ1 .cm-cursor, .ͼ1 .cm-dropCursor {border-left: 1.2px solid black; margin-left: -0.6px; pointer-events: none;}
+.ͼ1 .cm-cursor {display: none;}
+.ͼ3 .cm-cursor {border-left-color: #ddd;}
+.ͼ1 .cm-dropCursor {position: absolute;}
+.ͼ1.cm-focused > .cm-scroller > .cm-cursorLayer .cm-cursor {display: block;}
+.ͼ1 .cm-iso {unicode-bidi: isolate;}
+.ͼ1 .cm-announced {position: fixed; top: -10000px;}
+@media print {.ͼ1 .cm-announced {display: none;}}
+.ͼ2 .cm-activeLine {background-color: #cceeff44;}
+.ͼ3 .cm-activeLine {background-color: #99eeff33;}
+.ͼ2 .cm-specialChar {color: red;}
+.ͼ3 .cm-specialChar {color: #f78;}
+.ͼ1 .cm-gutters {flex-shrink: 0; display: flex; height: 100%; box-sizing: border-box; inset-inline-start: 0; z-index: 200;}
+.ͼ2 .cm-gutters {background-color: #f5f5f5; color: #6c6c6c; border-right: 1px solid #ddd;}
+.ͼ3 .cm-gutters {background-color: #333338; color: #ccc;}
+.ͼ1 .cm-gutter {display: flex !important; flex-direction: column; flex-shrink: 0; box-sizing: border-box; min-height: 100%; overflow: hidden;}
+.ͼ1 .cm-gutterElement {box-sizing: border-box;}
+.ͼ1 .cm-lineNumbers .cm-gutterElement {padding: 0 3px 0 5px; min-width: 20px; text-align: right; white-space: nowrap;}
+.ͼ2 .cm-activeLineGutter {background-color: #e2f2ff;}
+.ͼ3 .cm-activeLineGutter {background-color: #222227;}
+.ͼ1 .cm-panels {box-sizing: border-box; position: sticky; left: 0; right: 0; z-index: 300;}
+.ͼ2 .cm-panels {background-color: #f5f5f5; color: black;}
+.ͼ2 .cm-panels-top {border-bottom: 1px solid #ddd;}
+.ͼ2 .cm-panels-bottom {border-top: 1px solid #ddd;}
+.ͼ3 .cm-panels {background-color: #333338; color: white;}
+.ͼ1 .cm-tab {display: inline-block; overflow: hidden; vertical-align: bottom;}
+.ͼ1 .cm-widgetBuffer {vertical-align: text-top; height: 1em; width: 0; display: inline;}
+.ͼ1 .cm-placeholder {color: #888; display: inline-block; vertical-align: top;}
+.ͼ1 .cm-highlightSpace {background-image: radial-gradient(circle at 50% 55%, #aaa 20%, transparent 5%); background-position: center;}
+.ͼ1 .cm-highlightTab {background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="20"><path stroke="%23888" stroke-width="1" fill="none" d="M1 10H196L190 5M190 15L196 10M197 4L197 16"/></svg>'); background-size: auto 100%; background-position: right 90%; background-repeat: no-repeat;}
+.ͼ1 .cm-trailingSpace {background-color: #ff332255;}
+.ͼ1 .cm-button {vertical-align: middle; color: inherit; font-size: 70%; padding: .2em 1em; border-radius: 1px;}
+.ͼ2 .cm-button:active {background-image: linear-gradient(#b4b4b4, #d0d3d6);}
+.ͼ2 .cm-button {background-image: linear-gradient(#eff1f5, #d9d9df); border: 1px solid #888;}
+.ͼ3 .cm-button:active {background-image: linear-gradient(#111, #333);}
+.ͼ3 .cm-button {background-image: linear-gradient(#393939, #111); border: 1px solid #888;}
+.ͼ1 .cm-textfield {vertical-align: middle; color: inherit; font-size: 70%; border: 1px solid silver; padding: .2em .5em;}
+.ͼ2 .cm-textfield {background-color: white;}
+.ͼ3 .cm-textfield {border: 1px solid #555; background-color: inherit;}
+.ͼ1 .cm-foldPlaceholder {background-color: #eee; border: 1px solid #ddd; color: #888; border-radius: .2em; margin: 0 1px; padding: 0 1px; cursor: pointer;}
+.ͼ1 .cm-foldGutter span {padding: 0 1px; cursor: pointer;}
+ 
+.pandoc-plugin-error {
+    color: red;
+}
+ undefined
+</style>
+    </head>
+    <body>
+<p dir="auto"><a href="C:\Users\prequena\OneDrive\Almacén personal\5-CIBERSEGURIDAD\11-CPTS_HTB\CPTS_HTB\CHEATSHEET\1 - ENUMERACIÓN Y DESCUBRIMIENTO\index.html#FTP" class="tag" target="_blank" rel="noopener nofollow">#FTP</a> <a href="C:\Users\prequena\OneDrive\Almacén personal\5-CIBERSEGURIDAD\11-CPTS_HTB\CPTS_HTB\CHEATSHEET\1 - ENUMERACIÓN Y DESCUBRIMIENTO\index.html#SMB" class="tag" target="_blank" rel="noopener nofollow">#SMB</a> <a href="C:\Users\prequena\OneDrive\Almacén personal\5-CIBERSEGURIDAD\11-CPTS_HTB\CPTS_HTB\CHEATSHEET\1 - ENUMERACIÓN Y DESCUBRIMIENTO\index.html#NFS" class="tag" target="_blank" rel="noopener nofollow">#NFS</a> <a href="C:\Users\prequena\OneDrive\Almacén personal\5-CIBERSEGURIDAD\11-CPTS_HTB\CPTS_HTB\CHEATSHEET\1 - ENUMERACIÓN Y DESCUBRIMIENTO\index.html#DNS" class="tag" target="_blank" rel="noopener nofollow">#DNS</a> <a href="C:\Users\prequena\OneDrive\Almacén personal\5-CIBERSEGURIDAD\11-CPTS_HTB\CPTS_HTB\CHEATSHEET\1 - ENUMERACIÓN Y DESCUBRIMIENTO\index.html#SMTP" class="tag" target="_blank" rel="noopener nofollow">#SMTP</a> <a href="C:\Users\prequena\OneDrive\Almacén personal\5-CIBERSEGURIDAD\11-CPTS_HTB\CPTS_HTB\CHEATSHEET\1 - ENUMERACIÓN Y DESCUBRIMIENTO\index.html#IMAP" class="tag" target="_blank" rel="noopener nofollow">#IMAP</a> <a href="C:\Users\prequena\OneDrive\Almacén personal\5-CIBERSEGURIDAD\11-CPTS_HTB\CPTS_HTB\CHEATSHEET\1 - ENUMERACIÓN Y DESCUBRIMIENTO\index.html#POP3" class="tag" target="_blank" rel="noopener nofollow">#POP3</a> <a href="C:\Users\prequena\OneDrive\Almacén personal\5-CIBERSEGURIDAD\11-CPTS_HTB\CPTS_HTB\CHEATSHEET\1 - ENUMERACIÓN Y DESCUBRIMIENTO\index.html#SNMP" class="tag" target="_blank" rel="noopener nofollow">#SNMP</a> <a href="C:\Users\prequena\OneDrive\Almacén personal\5-CIBERSEGURIDAD\11-CPTS_HTB\CPTS_HTB\CHEATSHEET\1 - ENUMERACIÓN Y DESCUBRIMIENTO\index.html#MySQL" class="tag" target="_blank" rel="noopener nofollow">#MySQL</a> <a href="C:\Users\prequena\OneDrive\Almacén personal\5-CIBERSEGURIDAD\11-CPTS_HTB\CPTS_HTB\CHEATSHEET\1 - ENUMERACIÓN Y DESCUBRIMIENTO\index.html#MSSQL" class="tag" target="_blank" rel="noopener nofollow">#MSSQL</a></p>
+<h1 data-heading="FTP -p20,21" dir="auto">FTP -p20,21</h1>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ftp 1.2.3.4</td>
+<td><strong>Iniciar una conexión FTP</strong></td>
+<td><strong>[!]</strong> Podemos probar con el usuario "anonymous".</td>
+</tr>
+<tr>
+<td>sesion_FTP&gt; status</td>
+<td>Muestra <strong>información varia del servicio FTP</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>sesion_FTP&gt; debug</td>
+<td>Activa la depuración debug</td>
+<td></td>
+</tr>
+<tr>
+<td>sesion_FTP&gt; trace</td>
+<td>Activa el <strong>seguimiento de paquetes</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>sesion_FTP&gt; ls -R</td>
+<td>Lista directorios de forma recursiva del servicio FTP</td>
+<td></td>
+</tr>
+<tr>
+<td>sesion_FTP&gt;get &lt;nombre_archivo&gt;</td>
+<td><strong>Descarga</strong> del servidor dicho archivo</td>
+<td></td>
+</tr>
+<tr>
+<td>wget -m --no-passive ftp://anonymous: <a data-tooltip-position="top" aria-label="mailto:anonymous@1.2.3.4" rel="noopener nofollow" class="external-link" href="mailto:anonymous@1.2.3.4" target="_blank">anonymous@1.2.3.4</a></td>
+<td><strong>Descarga la totalidad</strong> de las carpetas de un servicio FTP. Después con <code>"tree ."</code> podemos consultrar su estructura.</td>
+<td>wget -m --no-passive ftp://anonymous:anonymous @10.129.14.136</td>
+</tr>
+<tr>
+<td>sesion_FTP&gt;put &lt;nombre_archivo&gt;</td>
+<td><strong>Sube un archivo</strong> al servidor FTP</td>
+<td>sesion_FTP&gt;put shell.exe</td>
+</tr>
+<tr>
+<td><code>cat /etc/vsftpd.conf</code></td>
+<td>Para servidores vsFTPd, ese <strong>archivo contiene los parámetros de configuración establecidos en el servidor.</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>cat /etc/ftpusers</code> o<br><code>cat /etc/vsftpd/ftpusers</code></td>
+<td>Para servidores FTP (entre otros, vsFTPd), este documento contiene los usuarios bloqueados a utilizar dicho servicio</td>
+<td></td>
+</tr>
+<tr>
+<td><code>nc -nv 1.2.3.4 &lt;port_a_atacar&gt;</code> o <br><code>nc -nv -p &lt;num_port_origen&gt; 1.2.3.4 &lt;num_port_a_atacar&gt;</code></td>
+<td><strong>Para detectar la versión del servicio FTP que a veces nmap obvia en el resumen.</strong> FTP suele correr en el puerto 21. Puerto origen recomendado: 53 (DNS), que no suele estar filtrado.</td>
+<td><code>nc -nv 1.2.3.4 &lt;port_a_atacar&gt;</code> o <br><code>nc -nv -p &lt;num_port_origen&gt; 1.2.3.4 &lt;num_port_a_atacar&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h1 data-heading="SMB -p445" dir="auto">SMB -p445</h1>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>smbclient -N -L //1.2.3.4</td>
+<td><strong>Numera recursos compartidos</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>smbclient //1.2.3.4/&lt;nombre_rescurso&gt;</td>
+<td><strong>Acceder a un recurso</strong> compartido concreto</td>
+<td></td>
+</tr>
+<tr>
+<td>smb: &gt; ls / cd / get</td>
+<td>Dentro del recurso de SMB, puedo <strong>listar directorios, acceder o descargar.</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>rpcclient -U "" 1.2.3.4</td>
+<td>Puedo realizar varias solicitudes para obtener información. Estas son:</td>
+<td></td>
+</tr>
+<tr>
+<td>rpc_client&gt; <code>srvinfo</code></td>
+<td>Muestra información general del servidor.</td>
+<td></td>
+</tr>
+<tr>
+<td>rpc_client&gt;<code>enumdomains</code></td>
+<td>Enumera todos los dominios visibles en la red.</td>
+<td></td>
+</tr>
+<tr>
+<td>rpc_client&gt;<code>querydominfo</code></td>
+<td>Muestra detalles del dominio, usuarios y controladores.</td>
+<td></td>
+</tr>
+<tr>
+<td>rpc_client&gt;<code>netshareenumall</code></td>
+<td>Lista todos los recursos compartidos disponibles (shares).</td>
+<td></td>
+</tr>
+<tr>
+<td>rpc_client&gt;<code>netsharegetinfo &lt;nombre_recurso&gt;</code></td>
+<td>Muestra información detallada sobre un recurso compartido específico.</td>
+<td></td>
+</tr>
+<tr>
+<td>rpc_client&gt;<code>enumdomusers</code></td>
+<td>Enumera todos los usuarios del dominio.</td>
+<td></td>
+</tr>
+<tr>
+<td>rpc_client&gt;<code>queryuser &lt;RID&gt;</code></td>
+<td>Proporciona información detallada sobre un usuario (requiere RID). Ver comando <code>enumdomusers</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>smbmap -H 1.2.3.4</code></td>
+<td><strong>Numera recursos compartidos</strong></td>
+<td></td>
+</tr>
+<tr>
+<td><code>crackmapexec smb 10.129.14.128 --shares -u '' -p '' </code></td>
+<td><strong>Numera recursos compartidos</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;git clone <a rel="noopener nofollow" class="external-link" href="https://github.com/cddmp/enum4linux-ng.git" target="_blank">https://github.com/cddmp/enum4linux-ng.git</a><br>&gt;cd enum4linux-ng<br>&gt;pip3 install -r requirements.txt<br>&gt;./enum4linux-ng.py 1.2.3.4 -A</td>
+<td>Enumerar información en servidores SMB/Windows**</td>
+<td></td>
+</tr>
+<tr>
+<td><code>cat /etc/samba/smb.conf</code></td>
+<td>Para visualizar las parametros de configuración del servicio SMB.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 data-heading="NFS -p111,2049" dir="auto">NFS -p111,2049</h1>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sudo nmap &lt;ip_víctima&gt; -p111,2049 -sV -sC</code></td>
+<td>Escanea los puertos 111 (rpcbind) y 2049 (NFS), detecta versiones de servicios y ejecuta scripts NSE básicos para obtener información general sobre el servicio NFS.</td>
+<td><code>sudo nmap 10.129.14.128 -p111,2049 -sV -sC</code></td>
+</tr>
+<tr>
+<td><code>sudo nmap --script nfs* &lt;ip_víctima&gt; -sV -p111,2049</code></td>
+<td>Escanea los puertos 111 y 2049, detecta versiones de servicios y ejecuta todos los scripts NSE relacionados con NFS, incluyendo la enumeración detallada de exportaciones NFS.</td>
+<td><code>sudo nmap --script nfs* 10.129.14.128 -sV -p111,2049</code></td>
+</tr>
+<tr>
+<td><code>showmount -e &lt;ip_víctima&gt;</code></td>
+<td>Únicamente muestra los recursos disponibles en una máquina víctima</td>
+<td><code>showmount -e 10.129.14.128</code></td>
+</tr>
+<tr>
+<td>&gt;<code>sudo mount -t nfs &lt;ip_victima&gt;:/ . -o nolock</code></td>
+<td>Proceso para mntar un recurso compartido NFS en local</td>
+<td>&gt;mkdir target-NFS<br>&gt;sudo mount -t nfs 10.129.14.128:/ ./target-NFS/ -o nolock<br>&gt;cd target-NFS<br>tree .</td>
+</tr>
+</tbody>
+</table>
+<h1 data-heading="DNS -p53 tcp/udp" dir="auto">DNS -p53 tcp/udp</h1>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dig soa &lt;dominio&gt;</td>
+<td>Consulta el registro SOA (Start of Authority) del dominio, que indica cuál es el servidor DNS principal y contiene info clave de la zona DNS.</td>
+<td><code>dig soa hackthebox.com</code></td>
+</tr>
+<tr>
+<td><code>dig ns &lt;nombre_dominio&gt; @&lt;ip_servidor_DNS&gt;</code></td>
+<td>Pregunta al servidor DNS en tal IP cuáles son los servidores de nombres para el dominio &lt;nombre_dominio&gt;</td>
+<td><code>dig ns inlanefreight.htb @10.129.14.128</code><br></td>
+</tr>
+<tr>
+<td><code>dig any \&lt;dominio&gt; @&lt;ip_servidor_DNS&gt;</code></td>
+<td>Consulta todos los registros DNS (<code>ANY</code>) del dominio directamente al servidor DNS que está en tal IP</td>
+<td><code>dig any inlanefreight.htb @10.129.14.128</code></td>
+</tr>
+<tr>
+<td><code>dig axfr \&lt;dominio&gt; @&lt;ip_servidor_DNS&gt;</code></td>
+<td>Intenta hacer una <strong>transferencia de zona DNS</strong> (<code>AXFR</code>) del dominio <code>inlanefreight.htb</code> desde el servidor DNS en <code>10.129.14.128</code>.</td>
+<td><code>dig axfr inlanefreight.htb @10.129.14.128</code></td>
+</tr>
+</tbody>
+</table>
+<h1 data-heading="SMTP -p25,587,465" dir="auto">SMTP -p25,587,465</h1>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>telnet &lt;ip_servidor&gt; &lt;puerto_25&gt;</code></td>
+<td>Interactuar con servicio SMTP</td>
+<td><code>telnet 10.129.14.128 25</code><br></td>
+</tr>
+<tr>
+<td><code>VRFY &lt;nombre_usuario&gt;</code></td>
+<td>Verifica que el usuario o dirección de correo electrónico existe en el servidor de correo.</td>
+<td>VRFY root</td>
+</tr>
+<tr>
+<td><code>EHLO &lt;nombre_cliente&gt;</code></td>
+<td>Se presenta al servidor y obtiene la lista de funciones SMTP disponibles (AUTH, STARTTLS, VRFY, etc.).</td>
+<td><code>EHLO polika4r</code></td>
+</tr>
+<tr>
+<td><code>MAIL FROM: &lt;cliente@dominio.com&gt;</code></td>
+<td>Inicia el envío de un mensaje desde la dirección especificada.</td>
+<td><code>MAIL FROM: &lt;cry0l1t3@inlanefreight.htb&gt;</code></td>
+</tr>
+<tr>
+<td><code>RCPT TO:&lt;destinatario&gt;</code></td>
+<td>Especifica el destinatario del mensaje. Se puede usar para verificar si el correo es aceptado.</td>
+<td><code>RCPT TO: &lt;mrb3n@inlanefreight.htb&gt;</code></td>
+</tr>
+<tr>
+<td>DATA</td>
+<td>Inicia la redacción del contenido del mensaje. Termina con una línea que contenga solo un punto (<code>.</code>)</td>
+<td></td>
+</tr>
+<tr>
+<td>QUIT</td>
+<td>Cierra la interacción con el srvicio SMTP</td>
+<td></td>
+</tr>
+<tr>
+<td><code>sudo nmap 10.129.14.128 -p25 --script smtp-open-relay -v</code></td>
+<td>Escanea el puerto 25 buscando servidores SMTP con relay abierto (open relay).</td>
+<td><code>sudo nmap 10.129.14.128 -p25 --script smtp-open-relay -v</code></td>
+</tr>
+<tr>
+<td><code>nmap --script smtp-enum-users.nse -p 25,465,587 &lt;host&gt;</code></td>
+<td>Enumera usuarios válidos en el servidor SMTP usando script NSE.</td>
+<td><code>nmap --script smtp-enum-users.nse -p 25,465,587 10.129.14.128</code></td>
+</tr>
+<tr>
+<td><code>smtp-user-enum -M VRFY -U /usr/share/metasploit-framework/data/ wordlists /unix_users.txt -t &lt;host&gt; -w 120 -v</code></td>
+<td>Enumera usuarios SMTP usando el comando <code>VRFY</code> con una lista de usuarios. -w define el timeout, -v modo verbose.</td>
+<td><code>smtp-user-enum -M VRFY -U /usr/share/metasploit-framework/data/wordlists/ unix_users.txt -t 10.129.3.215 -w 120 -v</code>|</td>
+</tr>
+<tr>
+<td><code>msfconsole</code> + módulo <code>scanner/smtp/smtp_enum</code><br></td>
+<td>Uso de Metasploit para enumerar usuarios SMTP en la víctima.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 data-heading="IMAP &amp; POP3 -p110,143,993,995" dir="auto">IMAP &amp; POP3 -p110,143,993,995</h1>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nmap -p 110,995,143,993 --script ssl-cert &lt;IP-del-servidor&gt;</code></td>
+<td>Escanear puertos POP3/IMAP con análisis de certificado SSL/TLS</td>
+<td><code>nmap -p 110,995,143,993 --script ssl-cert 10.129.14.128</code></td>
+</tr>
+<tr>
+<td><code>curl -k 'imaps://&lt;ip&gt;' --user &lt;usuario&gt;:&lt;contraseña&gt;</code></td>
+<td>Conectar al servidor IMAP sobre SSL con autenticación básica</td>
+<td><code>curl -k 'imaps://10.129.14.128' --user user:p4ssw0rd</code></td>
+</tr>
+<tr>
+<td><code>curl -k 'imaps://&lt;ip&gt;' --user &lt;usuario&gt;:&lt;contraseña&gt; -v</code></td>
+<td>Igual que anterior, mostrando salida detallada (verbose)</td>
+<td><code>curl -k 'imaps://10.129.14.128' --user cry0l1t3:1234 -v</code></td>
+</tr>
+<tr>
+<td><code>openssl s_client -connect &lt;ip&gt;:pop3s</code></td>
+<td>Conectar manualmente al servicio POP3 seguro (puerto 995). Puedo: - Escribir comandos IMAP directamente <br>- Ver detalles del <strong>certificado TLS</strong> del servidor.<br>- Ver si el canal cifrado está funcionando correctamente.<br>- Ver errores o advertencias en la negociación SSL/TLS. -  <br>- Muestra acciones puedo realizar.</td>
+<td><code>openssl s_client -connect 10.129.14.128:pop3s</code>.<br><br></td>
+</tr>
+<tr>
+<td><code>openssl s_client -connect &lt;ip&gt;:imaps</code></td>
+<td>Conectar manualmente al servicio IMAP seguro (puerto 993). Puedo: - Escribir comandos IMAP directamente <br>- Ver detalles del <strong>certificado TLS</strong> del servidor.<br>- Ver si el canal cifrado está funcionando correctamente.<br>- Ver errores o advertencias en la negociación SSL/TLS. -  <br>- Muestra acciones puedo realizar.</td>
+<td><code>openssl s_client -connect 10.129.14.128:imaps</code></td>
+</tr>
+</tbody>
+</table>
+<h1 data-heading="SNMP -p161,162udp" dir="auto">SNMP -p161,162udp</h1>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>`snmpwalk -v2c -c public &lt;ip_victima&gt;</td>
+<td>Herramienta para consultar recursivamente los OID de un dispositivo SNMP.<br>- Permite obtener toda la información disponible que el dispositivo expone vía SNMP.<br>- Muy útil para explorar y entender qué datos se pueden obtener.</td>
+<td><code>snmpwalk -v2c -c public 10.129.14.128</code>.<br><br>Esta salida es muy útil filtrarla con un:<br><br>| grep "@"<br>| grep ".sh"<br>| grep "HTB{"</td>
+</tr>
+<tr>
+<td>&gt;<code>sudo apt install onesixtyone</code><br>&gt;`onesixtyone -c /opt/useful/secli sts/Discovery/SNMP /snmp.txt 1.2.3.4</td>
+<td>Para descubrir y forzar nombres de <em>community strings</em> (cadenas de comunidad).<br><br>- La búsqueda puede ser lenta, ya que puede haber muchas combinaciones y nombres diferentes.</td>
+<td></td>
+</tr>
+<tr>
+<td>&gt;<code>sudo apt install braa</code><br>&gt;<code>braa public@&lt;ip_victima&gt;:&lt;community_string&gt;</code></td>
+<td>Escanea servicios SNMP y enumerar información específica.<br>    <br>- Se usa para consultar OID individuales con una cadena de comunidad conocida.</td>
+<td>&gt;<code>sudo apt install braa</code><br>&gt;<code>braa public@10.129.14.128:.1.3.6.*</code></td>
+</tr>
+</tbody>
+</table>
+<h1 data-heading="MySQL -p3306" dir="auto">MySQL -p3306</h1>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sudo nmap 1.2.3.4 -sV -sC -p3306 --script mysql*</code></td>
+<td>Escaneo de nmap para descubrir todos los scripts de nmap relacionados con MySQL para obtener detalles específicos del servicio, como usuarios, configuración, vulnerabilidades, etc.</td>
+<td><code>sudo nmap 10.129.14.128 -sV -sC -p3306 --script mysql*</code></td>
+</tr>
+<tr>
+<td><code>mysql -u &lt;usuario&gt; -h 1.2.3.4</code></td>
+<td>Conectar al servidor MySQL remoto con el usuario especificado, sin pedir contraseña (útil si no tiene o para autenticación sin contraseña).</td>
+<td><code>mysql -u root -h 10.129.14.132</code></td>
+</tr>
+<tr>
+<td><code>mysql -u &lt;usuario&gt; -p&lt;contraseña&gt; -h 1.2.3.4</code></td>
+<td>Conectar al servidor MySQL remoto usando usuario y contraseña (sin espacio entre <code>-p</code> y la contraseña).</td>
+<td><code>mysql -u root -pP4SSw0rd -h 10.129.14.128</code></td>
+</tr>
+<tr>
+<td><code>MySQL&gt; show databases;</code></td>
+<td>Muestra todas las bases de datos disponibles en el servidor MySQL.</td>
+<td><code>show databases;</code></td>
+</tr>
+<tr>
+<td><code>MySQL&gt; use &lt;database&gt;;</code></td>
+<td>Selecciona la base de datos sobre la que se quieren ejecutar las consultas.</td>
+<td><code>use wordpress;</code></td>
+</tr>
+<tr>
+<td><code>MySQL&gt; show tables;</code></td>
+<td>Muestra todas las tablas existentes en la base de datos seleccionada.</td>
+<td><code>show tables;</code></td>
+</tr>
+<tr>
+<td><code>MySQL&gt; show columns from &lt;table&gt;;</code></td>
+<td>Muestra todas las columnas (campos) de la tabla especificada, junto con sus tipos y atributos.</td>
+<td><code>show columns from users;</code></td>
+</tr>
+<tr>
+<td><code>MySQL&gt; select * from &lt;table&gt;;</code></td>
+<td>Muestra todos los registros (filas) y columnas de la tabla indicada.</td>
+<td><code>select * from users;</code></td>
+</tr>
+<tr>
+<td><code>MySQL&gt; select * from &lt;table&gt; where &lt;column&gt; = "&lt;string&gt;";</code></td>
+<td>Busca y muestra las filas de la tabla que cumplen la condición indicada (columna igual a un valor específico).</td>
+<td><code>select * from users where username = "admin";</code></td>
+</tr>
+</tbody>
+</table>
+<h1 data-heading="MSSQL -p1433" dir="auto">MSSQL -p1433</h1>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Descripción</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sudo nmap --script ms-sql-info,ms-sql-empty -password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm- info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=sa, mssql.password=,mssql.instance-name=MSSQLSERVER -sV -p 1433 1.2.3.4</code></td>
+<td>Escanea un servidor MSSQL en 1433, prueba credenciales vacías y ejecuta scripts de información y explotación.</td>
+<td>sudo nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config, ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username =sa,mssql.password=,mssql.instance-name=MSSQLSERVER -sV -p 1433 10.129.201.248</td>
+</tr>
+<tr>
+<td>msfconsole<br>use scanner/mssql_ping<br>	set rhosts 1.2.3.4<br>	run</td>
+<td>Detecta y enumera instancias MSSQL, versión, nombre, datos del host y tipo de conexión soportada.<br><br>Preguntar a ChatGPT</td>
+<td></td>
+</tr>
+<tr>
+<td>python3 mssqlclient.py &lt;user&gt;@1.2.3.4 -windows-auth<br></td>
+<td>Conectar con credenciales conocidas al servidor MMSQL</td>
+<td>python3 mssqlclient.py <a data-tooltip-position="top" aria-label="mailto:Administrator@10.129.201.248" rel="noopener nofollow" class="external-link" href="mailto:Administrator@10.129.201.248" target="_blank">Administrator@10.129.201.248</a> -windows-auth.<br>Con un <strong><em>select name from sys.databases</em></strong> se listan las bases de datos existentes.</td>
+</tr>
+</tbody>
+</table>
+    </body>
+</html>
