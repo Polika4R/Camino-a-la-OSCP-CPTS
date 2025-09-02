@@ -3,7 +3,6 @@
 # **Descubrimiento de Hosts y Puertos con Nmap**
 
 ---
-
 ##  1. Descubrimiento de Hosts Activos
 
 | Comando                                                                | Descripción                                                                                                                         | Ejemplo                                                      |

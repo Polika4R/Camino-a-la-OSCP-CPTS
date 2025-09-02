@@ -1,15 +1,16 @@
-**Nmap** es una herramienta de escaneo de redes muy potente que, además de hacer un simple escaneo de puertos, **puede intentar evitar que los sistemas de seguridad detecten o bloqueen su actividad**. Los firewalls y los sistemas IDS/IPS (Sistemas de Detección/Prevención de Intrusiones) están diseñados para identificar y bloquear escaneos sospechosos o ataques.
+nmap es una herramienta de escaneo de redes muy potente que, además de hacer un simple escaneo de puertos, puede intentar evitar que los sistemas de seguridad detecten o bloqueen su actividad. 
+Los firewalls y los sistemas IDS/IPS (Sistemas de Detección/Prevención de Intrusiones) están diseñados para identificar y bloquear escaneos sospechosos o ataques.
 
 Para evadir estos sistemas, Nmap utiliza técnicas como:
-
-- **Fragmentación de paquetes:** En lugar de enviar paquetes completos, Nmap los divide en fragmentos muy pequeños. Algunos firewalls o IDS pueden tener dificultades para reensamblar estos fragmentos correctamente y detectar que es un escaneo. Esto puede permitir que el escaneo pase sin ser detectado o bloqueado.
-- **Uso de señuelos (decoys):** Nmap puede enviar paquetes desde varias direcciones IP falsas (decoys) junto con la IP real que realiza el escaneo. Esto confunde al IDS/IPS, que no puede saber cuál es la fuente real, dificultando así la identificación del atacante.
+- Fragmentación de paquetes: En lugar de enviar paquetes completos, Nmap los divide en fragmentos muy pequeños. Algunos firewalls o IDS pueden tener dificultades para reensamblar estos fragmentos correctamente y detectar que es un escaneo. Esto puede permitir que el escaneo pase sin ser detectado o bloqueado.
+- Uso de señuelos (decoys): Nmap puede enviar paquetes desde varias direcciones IP falsas (decoys) junto con la IP real que realiza el escaneo. Esto confunde al IDS/IPS, que no puede saber cuál es la fuente real, dificultando así la identificación del atacante.
 
 ----
 
 Los paquetes pueden descartarse o rechazarse. Los paquetes descartados se ignoran y el host no devuelve ninguna respuesta.
 
-Esto es diferente para los paquetes rechazados que se devuelven con un indicador RST. Estos paquetes contienen diferentes tipos de códigos de error ICMP o no contienen nada. Estos errores pueden ser:
+Esto es diferente para los paquetes rechazados que se devuelven con un indicador RST. Estos paquetes contienen diferentes tipos de códigos de error ICMP o no contienen nada. 
+Estos errores pueden ser:
 - Red inaccesible
 - Red prohibida
 - Host inaccesible
@@ -18,10 +19,9 @@ Esto es diferente para los paquetes rechazados que se devuelven con un indicador
 - Proto inaccesible
 
 El método de escaneo TCP ACK **(-sA)** de Nmap es **mucho más difícil de filtrar para cortafuegos y sistemas IDS/IPS** que los escaneos SYN (-sS) o Connect (sT) habituales, ya que solo envía un paquete TCP con el indicador ACK. Cuando un puerto está cerrado o abierto, el host debe responder con un indicador RST. A diferencia de las conexiones salientes, los cortafuegos suelen bloquear todos los intentos de conexión (con el indicador SYN) desde redes externas. Sin embargo, el cortafuegos suele pasar por alto los paquetes con el indicador ACK, ya que no puede determinar si la conexión se estableció inicialmente desde la red externa o la interna.
-**El objetivo es identificar puertos filtrados/no filtrados, no su estado real (abierto o cerrado)**
+El objetivo es identificar puertos filtrados/no filtrados, no su estado real (abierto o cerrado).
 
 Si observamos estos escaneos, veremos cómo difieren los resultados:
-
 ### **Con SYN-Scan (-sS):**
 ```shell-session
 Polika4RM@htb[/htb]$ sudo nmap 10.129.2.28 -p 21,22,25 -sS -Pn -n --disable-arp-ping --packet-trace
@@ -50,7 +50,6 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 Paquetes TCP con el flag **SYN** (iniciar conexión TCP).
 
 **Recibido:**
-
 - Puerto 22 → Responde con **SYN-ACK** → Nmap lo marca como **open**.
 - Puerto 21 → Responde con **ICMP Port Unreachable** → Nmap lo marca como **filtered**.
 - Puerto 25 → No hay respuesta → Nmap lo marca como **filtered**.
@@ -121,7 +120,6 @@ PORT   STATE      SERVICE
 Esto significa que probablemente **hay un firewall bloqueando el tráfico TCP entrante hacia los puertos 21 y 25**.
 
 ---
-
 ###  Conclusión general
 
 |Puerto|Escaneo SYN (`-sS`)|Escaneo ACK (`-sA`)|Interpretación|
@@ -129,7 +127,6 @@ Esto significa que probablemente **hay un firewall bloqueando el tráfico TCP en
 |21|filtered|filtered|Filtrado por firewall, sin respuesta clara|
 |22|open|unfiltered|Está abierto y **no filtrado** por firewall|
 |25|filtered|filtered|Probablemente **filtrado por firewall**|
-
 ## Utilidad del -sA frente a -sS:
 Caso de un escaneo `-sS` y **todo te sale “filtered”**. No sabes si hay servicios activos o no.
 

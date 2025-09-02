@@ -94,3 +94,55 @@ ncat -nv --source-port 53 <IP objetivo> <puerto>
     - Versión del software.
     - Nombre del servidor.
     - Configuración de zonas (si haces queries bien formadas).
+
+---
+**QUESTIONS**
+**TARGET: 10.129.63.156
+**1. Enumerate all ports and their services. One of the services contains the flag you have to submit as the answer.**
+En primer lugar, numeramos la totalidad de los puertos y sus servicios con el comando:
+```
+nmap -sCV -p- --open --min-rate 2000 -n 10.129.63.156 -vvv
+```
+
+Observamos que los puertos abiertos son los siguientes:
+```
+Discovered open port 445/tcp on 10.129.63.156
+Discovered open port 22/tcp on 10.129.63.156
+Discovered open port 143/tcp on 10.129.63.156
+Discovered open port 110/tcp on 10.129.63.156
+Discovered open port 80/tcp on 10.129.63.156
+Discovered open port 139/tcp on 10.129.63.156
+Discovered open port 31337/tcp on 10.129.63.156
+```
+
+Lanzamos un *nc -nv <\ip> \<puerto>* a cada puerto con:
+```
+for port in 445 22 143 110 80 139 31337; do nc -nv 10.129.63.156 $port & done; wait
+```
+
+Como salida, obtenemos: 
+```
+(UNKNOWN) [10.129.63.156] 445 (microsoft-ds) open
+(UNKNOWN) [10.129.63.156] 143 (imap2) open
+(UNKNOWN) [10.129.63.156] 22 (ssh) open
+(UNKNOWN) [10.129.63.156] 80 (http) open
+(UNKNOWN) [10.129.63.156] 110 (pop3) open
+(UNKNOWN) [10.129.63.156] 139 (netbios-ssn) open
+(UNKNOWN) [10.129.63.156] 31337 (?) open
+SSH-2.0-OpenSSH_7.6p1 Ubuntu-4ubuntu0.7
+* OK [CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LOGINDISABLED] Dovecot (Ubuntu) ready.
++OK Dovecot (Ubuntu) ready.
+220 HTB{pr0F7pDv3r510nb4nn3r}
+```
+
+Pues, el puerto 31337 nos está devolviendo una cadena muy larga. Vamos a asegurarnos que sea ese el origen, lanzando un:
+
+```
+┌─[eu-academy-3]─[10.10.15.80]─[htb-ac-1876550@htb-hgs93gwpkd]─[~]
+└──╼ [★]$ nc -nv 10.129.63.156 31337
+(UNKNOWN) [10.129.63.156] 31337 (?) open
+220 HTB{pr0F7pDv3r510nb4nn3r}
+
+```
+Y efectivamente, nos devuelve la respuesta: *HTB{pr0F7pDv3r510nb4nn3r}*
+
