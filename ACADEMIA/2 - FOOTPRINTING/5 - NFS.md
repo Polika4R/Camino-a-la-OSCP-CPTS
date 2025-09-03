@@ -2,9 +2,9 @@
 
 ## Qué es NFS y cómo funciona
 
-NFS (Network File System) **es un protocolo** desarrollado por Sun Microsystems que permite a los usuarios acceder y montar sistemas de archivos remotos a través de una red como si fueran locales. A diferencia de SMB, que se utiliza principalmente en entornos Windows, NFS se emplea sobre todo entre sistemas Linux y Unix. 
+NFS (Network File System) es un protocolo desarrollado por Sun Microsystems que permite a los usuarios acceder y montar sistemas de archivos remotos a través de una red como si fueran locales. A diferencia de SMB, que se utiliza principalmente en entornos Windows, NFS se emplea sobre todo entre sistemas Linux y Unix. 
 
-Debido a que ambos protocolos son fundamentalmente diferentes, los clientes NFS **no pueden interactuar directamente con servidores SMB**.
+Debido a que ambos protocolos son fundamentalmente diferentes, los clientes NFS no pueden interactuar directamente con servidores SMB
 
 Existen varias versiones de este protocolo:
 - **NFSv2**: El más antiguo, funciona con UDP.
@@ -53,7 +53,6 @@ Como opciones de configuración, encontramos:
 ## Creación de un recurso compartido
 
 Con el siguiente comando, la subred 10.129.14.0/24 podrá montar /mnt/nfs y ver su contenido:
-
 ```shell-session
 root@nfs:~# echo '/mnt/nfs  10.129.14.0/24(sync,no_subtree_check)' >> /etc/exports
 root@nfs:~# systemctl restart nfs-kernel-server 
@@ -62,8 +61,7 @@ root@nfs:~# exportfs
 /mnt/nfs      	10.129.14.0/24
 ```
 
-En Linux, **montar** significa **hacer accesible el contenido de un sistema de archivos** (como un disco duro, una memoria USB o una carpeta compartida por red como NFS) **en un punto del sistema de archivos local**.
-- **Montar** = decirle al sistema: “aquí tienes este contenido externo (disco, carpeta, etc.), ponlo disponible en esta ruta del sistema”.
+En Linux, **montar** significa **hacer accesible el contenido de un sistema de archivos** (como un disco duro, una memoria USB o una carpeta compartida por red como NFS) en un punto del sistema de archivos local.
 
 ### Opciones peligrosas
 
@@ -77,16 +75,18 @@ En Linux, **montar** significa **hacer accesible el contenido de un sistema de a
 ## FOOTPRINTING de NFS
 
 - Puertos clave:
-    - `111` → RPC (Remote Procedure Call)
-    - `2049` → NFS
+    - `111` → RPC (Remote Procedure Call) #-p111
+    - `2049` → NFS #-p2049
 - Se puede usar **RPC** para averiguar qué servicios ofrece el servidor y qué carpetas tiene exportadas.
 
-**RPC (Remote Procedure Call)** es un protocolo que permite a un programa pedirle a otro en una máquina diferente que ejecute una función o procedimiento.
-El **Portmapper** es un servicio que funciona como un "registro" o directorio. Su trabajo es **decir en qué puerto están corriendo otros servicios RPC** en el servidor.
+RPC (Remote Procedure Call) es un protocolo que permite a un programa pedirle a otro en una máquina diferente que ejecute una función o procedimiento.
+
+El Portmapper es un servicio que funciona como un "registro" o directorio. 
+Su trabajo es decir en qué puerto están corriendo otros servicios RPC en el servidor.
 - Cuando un cliente quiere usar NFS, primero pregunta al portmapper en el puerto 111 qué puerto usa NFS.
 - El portmapper responde: "NFS está en el puerto 2049".
 - Entonces el cliente se conecta al puerto 2049 para usar NFS.
-**El puerto 111 es fundamental porque permite descubrir qué servicios RPC están activos y en qué puertos, lo cual es clave para hacer footprinting y enumerar servicios en pentesting.**
+El puerto 111 es fundamental porque permite descubrir qué servicios RPC están activos y en qué puertos, lo cual es clave para hacer footprinting y enumerar servicios en pentesting.
 
 ```shell-session
 Polika4RM@htb[/htb]$ sudo nmap 10.129.14.128 -p111,2049 -sV -sC
@@ -221,3 +221,61 @@ Polika4RM@htb[/htb]$ tree .
 2 directories, 3 files
 ```
 
+---
+**QUESTIONS**
+**Target: 10.129.244.49**
+**1. Enumerate the NFS service and submit the contents of the flag.txt in the "nfs" share as the answer.
+
+Realizando un escaneo básico en nmap:
+```
+sudo nmap -sSV --min-rate 2000 --open -Pn -n 10.129.244.49
+```
+observo que existen los siguientes puertos abiertos:
+```
+PORT     STATE SERVICE     VERSION
+21/tcp   open  ftp
+22/tcp   open  ssh         OpenSSH 8.2p1 Ubuntu 4ubuntu0.2 (Ubuntu Linux; protocol 2.0)
+111/tcp  open  rpcbind     2-4 (RPC #100000)
+139/tcp  open  netbios-ssn Samba smbd 4.6.2
+445/tcp  open  netbios-ssn Samba smbd 4.6.2
+2049/tcp open  nfs         3-4 (RPC #100003)
+```
+
+Los puertos 111 y 2049 indican que está corriendo un servicio NFS.  
+
+Lanzando un script más concreto contra servicios NFS:
+```
+sudo nmap 10.129.244.49 --script nfs* -sV -p111,2049
+```
+, observo dos volúmenes que contienen un archivo llamado flag.txt
+
+```
+| nfs-statfs: 
+|   Filesystem     1K-blocks  Used       Available  Use%  Maxfilesize  Maxlink
+|   /var/nfs       4062912.0  3330672.0  506144.0   87%   16.0T        32000
+|_  /mnt/nfsshare  4062912.0  3330672.0  506144.0   87%   16.0T        32000
+| nfs-ls: Volume /var/nfs
+|   access: Read Lookup Modify Extend Delete NoExecute
+| PERMISSION  UID    GID    SIZE  TIME                 FILENAME
+| rwxr-xr-x   65534  65534  4096  2021-11-08T15:08:27  .
+| ??????????  ?      ?      ?     ?                    ..
+| rw-r--r--   65534  65534  39    2021-11-08T15:08:27  flag.txt
+| 
+| 
+| Volume /mnt/nfsshare
+|   access: Read Lookup Modify Extend Delete NoExecute
+| PERMISSION  UID    GID    SIZE  TIME                 FILENAME
+| rwxr-xr-x   65534  65534  4096  2021-11-08T14:06:40  .
+| ??????????  ?      ?      ?     ?                    ..
+| rw-r--r--   65534  65534  59    2021-11-08T14:06:40  flag.txt
+```
+
+Dichos recursos también los puedo listar de la siguiente forma:
+```
+showmount -e 10.129.244.49
+Export list for 10.129.244.49:
+/var/nfs      10.0.0.0/8
+/mnt/nfsshare 10.0.0.0/8
+```
+
+Me creo una carpeta
