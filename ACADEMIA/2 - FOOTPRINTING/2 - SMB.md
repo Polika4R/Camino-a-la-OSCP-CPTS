@@ -1,4 +1,4 @@
-# Protocolo SMB y Samba (Resumen para PYME)
+# Protocolo SMB y Samba
 
 SMB (Server Message Block) es un protocolo cliente-servidor que permite:
 - Compartir archivos y carpetas.

@@ -1,13 +1,13 @@
-**El Sistema de Nombres de Dominio (DNS)** es fundamental para Internet, ya que **permite traducir nombres de dominio (como academy.hackthebox.com) en direcciones IP** específicas asignadas a servidores web. 
+El Sistema de Nombres de Dominio (DNS) es fundamental para Internet, ya que permite traducir nombres de dominio (como academy.hackthebox.com) en direcciones IP específicas asignadas a servidores web. 
 
 DNS no tiene una base de datos central, sino que funciona de manera distribuida a través de miles de servidores de nombres en todo el mundo. 
 
 Estos servidores traducen los nombres de dominio en IPs y dirigen a los usuarios al servidor correcto. Existen varios tipos de servidores DNS, entre ellos: servidores raíz, servidores autoritativos, no autoritativos, de caché, de reenvío y resolutores.
 
-- **Root DNS:** Gestionan los dominios de nivel superior y actúan como última instancia. Hay 13 servidores coordinados por ICANN.  
-- **Autoritativos:** Responden con información definitiva para su zona DNS.  
-- **No autoritativos:** Obtienen información de otras fuentes sin tener autoridad.  
-- **Caché:** Guardan respuestas temporales para acelerar consultas.  
+- **Root DNS:** Gestionan los dominios de nivel superior y actúan como última instancia. Hay 13 servidores coordinados por ICANN.  No saben la dirección de www\.ejemplo.com_, pero sí saben quién tiene la lista de los dominios .com, .org, etc.
+- **Autoritativos:** Responden con información definitiva para su zona DNS.  El servidor autoritativo de esa zona dice:   “La IP de _www\.ejemplo.com_ es 192.0.2.1”. 
+- **No autoritativos:** Obtienen información de otras fuentes sin tener autoridad.  Si tú preguntas a un servidor de tu proveedor de Internet y él no es autoritativo, va buscando la respuesta por la red
+- **Caché:** Guardan respuestas temporales para acelerar consultas. Si ya alguien preguntó por _www\.ejemplo.com_ hace poco, el servidor guarda la respuesta y te la da rápido, sin volver a consultar todo
 - **Reenvío:** Solo envían consultas a otros servidores.
 - **Resolvers:** Realizan la resolución de nombres localmente en equipos o routers.
 
@@ -18,18 +18,27 @@ Dado que esto supone un riesgo para la privacidad, existen soluciones para el ci
 Sin embargo, el DNS no solo vincula nombres de ordenadores y direcciones IP. También almacena y genera información adicional sobre los servicios asociados a un dominio. **Por lo tanto, una consulta DNS también puede utilizarse, por ejemplo, para determinar qué ordenador sirve como servidor de correo electrónico para el dominio en cuestión o cómo se llaman los servidores de nombres del dominio.
 
 ## Registros de DNS
-**Registros DNS** son entradas que indican diferentes tipos de información sobre un dominio. Cada tipo tiene una función distinta para que Internet funcione correctamente.
+**Registros DNS** son entradas que indican diferentes tipos de información sobre un dominio. Cada registro es como una “ficha” que le dice a Internet cómo manejar un dominio
 
-|Registro|Función básica|
-|---|---|
-|**A**|Devuelve la dirección IPv4 (ejemplo: 192.168.1.1) de un dominio.|
-|**AAAA**|Devuelve la dirección IPv6 del dominio (una versión más larga y nueva de IP).|
-|**MX**|Indica qué servidores se encargan del correo electrónico del dominio.|
-|**NS**|Indica cuáles son los servidores DNS responsables del dominio.|
-|**TXT**|Guarda información variada, como comprobaciones de seguridad o validación de servicios.|
-|**CNAME**|Es un alias que apunta un dominio a otro (ejemplo: www a dominio principal).|
-|**PTR**|Hace lo contrario que A/AAAA: traduce una IP en un nombre de dominio (búsqueda inversa).|
-|**SOA**|Contiene datos administrativos del dominio, como quién lo controla y cómo se gestiona.|
+| Registro  | ¿Qué hace?                                                                        | Ejemplo real                                               |
+| --------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| **A**     | Asocia un dominio con una dirección IPv4.                                         | `midominio.com → 192.168.1.1`                              |
+| **AAAA**  | Igual que A, pero con IPv6 (IPs largas).                                          | `midominio.com → 2001:0db8::1`                             |
+| **MX**    | Dice qué servidor recibe el correo.                                               | `correo.midominio.com` maneja el email de `@midominio.com` |
+| **NS**    | Indica qué servidores DNS son los “jefes” del dominio.                            | `ns1.midominio.com`, `ns2.midominio.com`                   |
+| **TXT**   | Texto libre. Muy usado para seguridad (SPF, DKIM, verificación de Google, etc.).  | `"v=spf1 include:_spf.google.com ~all"`                    |
+| **CNAME** | Alias: un nombre apunta a otro dominio.                                           | `www.midominio.com → midominio.com`                        |
+| **PTR**   | Traducción inversa: de IP a nombre de dominio.                                    | `192.168.1.1 → midominio.com`                              |
+| **SOA**   | Datos de administración: quién gestiona el dominio, tiempo de actualización, etc. | Nombre del responsable, intervalos de refresco, etc.       |
+**Metáfora rápida:**
+- **A/AAAA** → Dirección de la casa.
+- **MX** → El buzón de correo.
+- **NS** → Los administradores de la casa.
+- **TXT** → Notas en la puerta (“Aquí vive Google, no spam”).
+- **CNAME** → Un cartel que dice “si buscas esta casa, en realidad está en otra dirección”.
+- **PTR** → Preguntar por una dirección para saber quién vive ahí.
+- **SOA** → El contrato oficial del terreno, con las reglas de gestión.
+
 Cuando se realiza una consulta con `dig soa dominio`, te muestra información sobre el servidor que administra el dominio y el contacto del administrador. La dirección de correo que aparece tiene un punto (.) en vez de arroba (@), que es una convención en DNS.
 
 ```shell-session
@@ -64,17 +73,15 @@ El punto (.) se sustituye por una arroba (@) en la dirección de correo electró
 ## Configuración predeterminada
 
 Los servidores DNS usan tres tipos principales de archivos de configuración:
-
 1. **Archivos de configuración local:** Ajustan parámetros generales del servidor DNS.
 2. **Archivos de zona:** Definen las zonas específicas (dominios) que gestiona el servidor.
 3. **Archivos de resolución inversa:** Relacionan direcciones IP con nombres de dominio (búsqueda inversa).
 
-|Tipo de Archivo|Función Principal|Ejemplo / Descripción|
-|---|---|---|
-|**Archivos de configuración local**|Ajustan parámetros generales y definen zonas DNS|`named.conf.local` — define qué dominios gestionar|
-|**Archivos de zona**|Contienen datos de un dominio: IPs, servidores, alias|`/etc/bind/db.domain.com` — registros SOA, NS, A, CNAME, MX|
-|**Archivos de resolución inversa**|Asocian direcciones IP a nombres de dominio (búsqueda inversa)|`/etc/bind/db.10.129.14` — registros PTR que convierten IP a nombre|
-
+| Tipo de Archivo                     | Función Principal                                              | Ejemplo / Descripción                                               |
+| ----------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------- |
+| **Archivos de configuración local** | Ajustan parámetros generales y definen zonas DNS               | `named.conf.local` — define qué dominios gestionar                  |
+| **Archivos de zona**                | Contienen datos de un dominio: IPs, servidores, alias          | `/etc/bind/db.domain.com` — registros SOA, NS, A, CNAME, MX         |
+| **Archivos de resolución inversa**  | Asocian direcciones IP a nombres de dominio (búsqueda inversa) | `/etc/bind/db.10.129.14` — registros PTR que convierten IP a nombre |
 
 El servidor **Bind9** (muy usado en Linux) divide su configuración local en archivos como `named.conf.local`, `named.conf.options` y `named.conf.log`.
 
@@ -357,3 +364,113 @@ internal.inlanefreight.htb. 604800 IN   SOA     inlanefreight.htb. root.inlanefr
 ```
 
 
+dnsenum --dnsserver 10.129.221.106 --enum -p 0 -s 0 -o subdomains.txt -f /opt/useful/seclists/Discovery/DNS/subdomains-top1million-110000.txt dev.inlanefreight.htb
+
+
+---
+**QUESTIONS
+**Target: 10.129.221.106**
+**1. Interact with the target DNS using its IP address and enumerate the FQDN (domain) of it for the "inlanefreight.htb" domain.**
+
+Ejecutando un: 
+```
+dig ns inlanefreight.htb @10.129.221.106
+```
+Conseguimos preguntar al servidor DNS en tal IP cuáles son los servidores de nombres para el dominio inlanefreight.htb.
+
+Como respuesta, entre demás, encontramos: 
+```
+;; ANSWER SECTION:
+inlanefreight.htb.	604800	IN	NS	ns.inlanefreight.htb.
+```
+
+Siendo la respuesta *ns.inlanefreight.htb*
+
+**2. Identify if its possible to perform a zone transfer and submit the TXT record as the answer. (Format: HTB{...})**
+
+Ejecutamos un: 
+```
+dig axfr inlanefreight.htb @10.129.221.106
+```
+
+Y nos muestra: 
+```
+dig axfr inlanefreight.htb @10.129.221.106
+; <<>> DiG 9.18.33-1~deb12u2-Debian <<>> axfr inlanefreight.htb @10.129.221.106
+;; global options: +cmd
+inlanefreight.htb.	604800	IN	SOA	inlanefreight.htb. root.inlanefreight.htb. 2 604800 86400 2419200 604800
+inlanefreight.htb.	604800	IN	TXT	"MS=ms97310371"
+inlanefreight.htb.	604800	IN	TXT	"atlassian-domain-verification=t1rKCy68JFszSdCKVpw64A1QksWdXuYFUeSXKU"
+inlanefreight.htb.	604800	IN	TXT	"v=spf1 include:mailgun.org include:_spf.google.com include:spf.protection.outlook.com include:_spf.atlassian.net ip4:10.129.124.8 ip4:10.129.127.2 ip4:10.129.42.106 ~all"
+inlanefreight.htb.	604800	IN	NS	ns.inlanefreight.htb.
+app.inlanefreight.htb.	604800	IN	A	10.129.18.15
+dev.inlanefreight.htb.	604800	IN	A	10.12.0.1
+internal.inlanefreight.htb. 604800 IN	A	10.129.1.6         <------------- [!]
+mail1.inlanefreight.htb. 604800	IN	A	10.129.18.201
+ns.inlanefreight.htb.	604800	IN	A	127.0.0.1
+inlanefreight.htb.	604800	IN	SOA	inlanefreight.htb. root.inlanefreight.htb. 2 604800 86400 2419200 604800
+;; Query time: 9 msec
+;; SERVER: 10.129.221.106#53(10.129.221.106) (TCP)
+;; WHEN: Wed Sep 03 05:17:18 CDT 2025
+;; XFR size: 11 records (messages 1, bytes 560)
+```
+
+- El servidor DNS 10.129.221.106 permite realizar zone transfer.
+- Esto devuelve todos los registros DNS del dominio inlanefreight.htb (A, TXT, NS, SOA).
+- Dentro de estos registros aparece el subdominio `internal.inlanefreight.htb` con su correspondiente IP (`10.129.1.6`).
+
+Al ejecutar: 
+```
+dig axfr internal.inlanefreight.htb @10.129.221.106
+```
+
+Nos muestra, entre más información, la flag:
+```
+internal.inlanefreight.htb. 604800 IN	TXT	"MS=ms97310371"
+internal.inlanefreight.htb. 604800 IN	TXT	"HTB{DN5_z0N3_7r4N5F3r_iskdufhcnlu34}"
+internal.inlanefreight.htb. 604800 IN	TXT	"atlassian-domain-verification=t1rKCy68JFszSdCKVpw64A1QksWdXuYFUeSXKU"
+internal.inlanefreight.htb. 604800 IN	TXT	"v=spf1 include:mailgun.org include:_spf.google.com include:spf.protection.outlook.com include:_spf.atlassian.net ip4:10.129.124.8 ip4:10.129.127.2 ip4:10.129.42.106 ~all"
+internal.inlanefreight.htb. 604800 IN	NS	ns.inlanefreight.htb.
+```
+Respuesta: *HTB{DN5_z0N3_7r4N5F3r_iskdufhcnlu34}*
+
+**3. What is the IPv4 address of the hostname DC1?**
+Sobre la misma salida anterior:
+```
+dig axfr internal.inlanefreight.htb @10.129.221.106
+
+; <<>> DiG 9.18.33-1~deb12u2-Debian <<>> axfr internal.inlanefreight.htb @10.129.221.106
+;; global options: +cmd
+internal.inlanefreight.htb. 604800 IN	SOA	inlanefreight.htb. root.inlanefreight.htb. 2 604800 86400 2419200 604800
+internal.inlanefreight.htb. 604800 IN	TXT	"MS=ms97310371"
+internal.inlanefreight.htb. 604800 IN	TXT	"HTB{DN5_z0N3_7r4N5F3r_iskdufhcnlu34}"
+internal.inlanefreight.htb. 604800 IN	TXT	"atlassian-domain-verification=t1rKCy68JFszSdCKVpw64A1QksWdXuYFUeSXKU"
+internal.inlanefreight.htb. 604800 IN	TXT	"v=spf1 include:mailgun.org include:_spf.google.com include:spf.protection.outlook.com include:_spf.atlassian.net ip4:10.129.124.8 ip4:10.129.127.2 ip4:10.129.42.106 ~all"
+internal.inlanefreight.htb. 604800 IN	NS	ns.inlanefreight.htb.
+dc1.internal.inlanefreight.htb.	604800 IN A	10.129.34.16   <---------- [!]
+dc2.internal.inlanefreight.htb.	604800 IN A	10.129.34.11
+mail1.internal.inlanefreight.htb. 604800 IN A	10.129.18.200
+ns.internal.inlanefreight.htb. 604800 IN A	127.0.0.1
+vpn.internal.inlanefreight.htb.	604800 IN A	10.129.1.6
+ws1.internal.inlanefreight.htb.	604800 IN A	10.129.1.34
+ws2.internal.inlanefreight.htb.	604800 IN A	10.129.1.35
+wsus.internal.inlanefreight.htb. 604800	IN A	10.129.18.2
+internal.inlanefreight.htb. 604800 IN	SOA	inlanefreight.htb. root.inlanefreight.htb. 2 604800 86400 2419200 604800
+;; Query time: 6 msec
+;; SERVER: 10.129.221.106#53(10.129.221.106) (TCP)
+;; WHEN: Wed Sep 03 05:27:30 CDT 2025
+;; XFR size: 15 records (messages 1, bytes 677)
+```
+
+Vemos como el dirección IP asociada a dc1.internal.inlanefreight.htb es la *10.129.34.16*
+
+**4. What is the FQDN of the host where the last octet ends with "x.x.x.203"?**
+Ejecutando fuerza bruta contra el dominio dev.inlanefreight.htb, observo:
+```
+dnsenum --dnsserver 10.129.221.106 --enum -p 0 -s 0 -o subdomains.txt -f /opt/useful/seclists/Discovery/DNS/dns-Jhaddix.txt dev.inlanefreight.htb
+```
+
+Observo esta salida de datos:
+```
+
+```

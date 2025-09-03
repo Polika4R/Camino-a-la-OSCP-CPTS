@@ -278,4 +278,26 @@ Export list for 10.129.244.49:
 /mnt/nfsshare 10.0.0.0/8
 ```
 
-Me creo una carpeta
+Nos creamos una carpeta en nuesta máquina atacante, que se llame *target-NFS* y montamos el recurso sobre dicha ruta: 
+```
+mkdir target-NFS
+sudo mount -t nfs 10.129.244.49:/ ./target-NFS/ -o nolock
+```
+Entrado a:
+cat target-NFS/mnt/nfsshare/flag.txt veo la flag del primer ejercicio:
+```
+cat target-NFS/var/nfs/flag.txt
+HTB{hjglmvtkjhlkfuhgi734zthrie7rjmdze}
+```
+
+**2. Enumerate the NFS service and submit the contents of the flag.txt in the "nfsshare" share as the answer.**
+Partiendo del ejercico anterior, entrando a:
+```
+cat target-NFS/mnt/nfsshare/flag.txt 
+HTB{8o7435zhtuih7fztdrzuhdhkfjcn7ghi4357ndcthzuc7rtfghu34}
+```
+
+Encuentro la flag del directorio nfsshare.
+
+
+

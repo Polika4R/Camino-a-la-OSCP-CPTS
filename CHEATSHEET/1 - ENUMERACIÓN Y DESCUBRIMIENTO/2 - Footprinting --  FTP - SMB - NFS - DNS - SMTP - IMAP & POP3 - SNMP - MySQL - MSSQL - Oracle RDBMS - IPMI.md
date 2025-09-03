@@ -50,8 +50,8 @@
 | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
 | dig soa \<dominio>                           | Consulta el registro SOA (Start of Authority) del dominio, que indica cuál es el servidor DNS principal y contiene info clave de la zona DNS. | `dig soa hackthebox.com`                      |
 | `dig ns <nombre_dominio> @<ip_servidor_DNS>` | Pregunta al servidor DNS en tal IP cuáles son los servidores de nombres para el dominio <nombre_dominio>                                      | `dig ns inlanefreight.htb @10.129.14.128`<br> |
-| `dig any \<dominio> @<ip_servidor_DNS>`      | Consulta todos los registros DNS (`ANY`) del dominio directamente al servidor DNS que está en tal IP                                          | `dig any inlanefreight.htb @10.129.14.128`    |
-| `dig axfr \<dominio> @<ip_servidor_DNS>`     | Intenta hacer una **transferencia de zona DNS** (`AXFR`) del dominio `inlanefreight.htb` desde el servidor DNS en `10.129.14.128`.            | `dig axfr inlanefreight.htb @10.129.14.128`   |
+| `dig any \<dominio> @<ip_servidor_DNS>`      | Consulta todos los registros DNS (`ANY`) del dominio directamente al servidor DNS que está en tal IP                                          | `dig any inlanefreight.htb @10.129.221.106`   |
+| `dig axfr \<dominio> @<ip_servidor_DNS>`     | Intenta hacer una **transferencia de zona DNS** (`AXFR`) del dominio `inlanefreight.htb` desde el servidor DNS en `10.129.14.128`.            | `dig axfr inlanefreight.htb @10.129.221.106   |
 # SMTP -p25,587,465
 
 | Comando                                                                                                         | Descripción                                                                                                      | Ejemplo                                                                                                                |
