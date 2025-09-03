@@ -465,12 +465,59 @@ internal.inlanefreight.htb. 604800 IN	SOA	inlanefreight.htb. root.inlanefreight.
 Vemos como el dirección IP asociada a dc1.internal.inlanefreight.htb es la *10.129.34.16*
 
 **4. What is the FQDN of the host where the last octet ends with "x.x.x.203"?**
-Ejecutando fuerza bruta contra el dominio dev.inlanefreight.htb, observo:
+
+Forzando una zona de transferencia sobre el dominio inlanefreight.htb, observo como existen varios subdominios e IP's internas:
+
 ```
-dnsenum --dnsserver 10.129.221.106 --enum -p 0 -s 0 -o subdomains.txt -f /opt/useful/seclists/Discovery/DNS/dns-Jhaddix.txt dev.inlanefreight.htb
+dig axfr inlanefreight.htb @10.129.221.106
+; <<>> DiG 9.18.33-1~deb12u2-Debian <<>> axfr inlanefreight.htb @10.129.221.106
+;; global options: +cmd
+inlanefreight.htb.	604800	IN	SOA	inlanefreight.htb. root.inlanefreight.htb. 2 604800 86400 2419200 604800
+inlanefreight.htb.	604800	IN	TXT	"MS=ms97310371"
+inlanefreight.htb.	604800	IN	TXT	"atlassian-domain-verification=t1rKCy68JFszSdCKVpw64A1QksWdXuYFUeSXKU"
+inlanefreight.htb.	604800	IN	TXT	"v=spf1 include:mailgun.org include:_spf.google.com include:spf.protection.outlook.com include:_spf.atlassian.net ip4:10.129.124.8 ip4:10.129.127.2 ip4:10.129.42.106 ~all"
+inlanefreight.htb.	604800	IN	NS	ns.inlanefreight.htb.
+app.inlanefreight.htb.	604800	IN	A	10.129.18.15
+dev.inlanefreight.htb.	604800	IN	A	10.12.0.1
+internal.inlanefreight.htb. 604800 IN	A	10.129.1.6         <------------- [!]
+mail1.inlanefreight.htb. 604800	IN	A	10.129.18.201
+ns.inlanefreight.htb.	604800	IN	A	127.0.0.1
+inlanefreight.htb.	604800	IN	SOA	inlanefreight.htb. root.inlanefreight.htb. 2 604800 86400 2419200 604800
+;; Query time: 9 msec
+;; SERVER: 10.129.221.106#53(10.129.221.106) (TCP)
+;; WHEN: Wed Sep 03 05:17:18 CDT 2025
+;; XFR size: 11 records (messages 1, bytes 560)
+```
+
+Intentando forzar zonas de transferencias sobre:
+- inlanefreight.htb.	604800	IN	NS	ns.inlanefreight.htb.
+- app.inlanefreight.htb.	604800	IN	A	10.129.18.15
+- dev.inlanefreight.htb.	604800	IN	A	10.12.0.1
+- internal.inlanefreight.htb. 604800 IN	A	10.129.1.6        
+- mail1.inlanefreight.htb. 604800	IN	A	10.129.18.201
+- ns.inlanefreight.htb.	604800	IN	A	127.0.0.1
+
+Observo que la única que me funciona es:
+```
+dig axfr internal.inlanefreight.htb @10.129.221.106
+dig axfr ns.inlanefreight.htb @10.129.221.106
+dig axfr dev.inlanefreight.htb @10.129.221.106
+```
+
+
+Ejecutando fuerza bruta contra el dominio dev.inlanefreight.htb con dicho diccionario concreto, observo:
+```
+dnsenum --dnsserver 10.129.221.106 --enum -p 0 -s 0 -o subdomains.txt -f /opt/useful/seclists/Discovery/DNS/fierce-hostlist.txt dev.inlanefreight.htb
+
 ```
 
 Observo esta salida de datos:
 ```
+Brute forcing with /opt/useful/seclists/Discovery/DNS/fierce-hostlist.txt:
+___________________________________________________________________________
+
+dev1.dev.inlanefreight.htb.              604800   IN    A         10.12.3.6
+ns.dev.inlanefreight.htb.                604800   IN    A         127.0.0.1
+win2k.dev.inlanefreight.htb.             604800   IN    A        10.12.3.203
 
 ```

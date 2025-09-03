@@ -1,4 +1,3 @@
-
 **IMAP vs POP3**
 - **IMAP (Internet Message Access Protocol):**  
     Permite gestionar correos directamente en el servidor, con soporte para carpetas y sincronización entre múltiples clientes. Los emails permanecen en el servidor hasta que se eliminan. Ofrece funciones avanzadas como acceso simultáneo de varios usuarios, creación de carpetas personales, y manejo online de correos. Requiere conexión activa para gestionar correos, aunque algunos clientes permiten modo offline sincronizando luego los cambios. Usa el puerto 143 (o 993 con SSL/TLS para seguridad).  
@@ -63,8 +62,7 @@
 - Muchas empresas usan proveedores externos (Google, Microsoft), pero otras mantienen servidores propios para controlar la privacidad.
 - Un mal ajuste puede permitir leer correos sensibles o interceptar credenciales.
 
-### Footprinting del servicio IMAP y POP3
-
+# Footprinting del servicio IMAP y POP3
 - **Puertos por defecto:**
     - **POP3:**
         - Puerto **110** (sin cifrado
@@ -125,7 +123,6 @@ Nmap done: 1 IP address (1 host up) scanned in 12.74 seconds
     - Las **capacidades del servidor**, es decir, los comandos que soporta el servicio en el puerto escaneado (como LOGIN, LIST, FETCH para IMAP).
         
 - **Riesgos de seguridad:**
-    
     - Si un atacante logra obtener credenciales válidas (usuario y contraseña) de algún empleado, podría:
         - Acceder al servidor de correo legítimamente.
         - Leer correos privados y confidenciales.
@@ -189,8 +186,9 @@ https://www.atmail.com/blog/imap-101-manual-imap-sessions/
    Desde este momento, ya podemos ingresar comandos.
 
 ---------------
-
-**\[+1 CUBE ] Figure out the exact organization name from the IMAP/POP3 service and submit it as the answer.*
+**QUESTIONS**
+**Target: 10.129.42.195 
+**1. Figure out the exact organization name from the IMAP/POP3 service and submit it as the answer.*
 
 Ejecuto para escanear los puertos POP3/IMAP con análisis de certificado SSL/TLS:
 >nmap -p 110,995,143,993 --script ssl-cert 10.129.42.195

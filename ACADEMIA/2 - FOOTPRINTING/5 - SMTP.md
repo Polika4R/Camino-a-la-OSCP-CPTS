@@ -24,7 +24,6 @@ Puede utilizarse  entre:
     - **Open Relay Attack:** ataque posible si un servidor SMTP está mal configurado y permite enviar correos no autorizados a través de él.
 
 #### Flujo del correo al llegar al destino
-    
 El servidor SMTP destino recibe los paquetes, los ensambla para formar el correo completo.
 El **Mail Delivery Agent (MDA)** transfiere el correo a la bandeja del destinatario, que puede usarse con protocolos POP3 o IMAP.
 
@@ -53,7 +52,6 @@ Que recopila las características principales de configuración.
 Para interactuar con un servidor SMTP, utilizaremos la herramienta TELNET.
 
 Para hacerlo, ejecutaremos:
-
 ```
 Polika4RM@htb[/htb]$ telnet <ip_servidor> <puerto_SMTP>   
 				    #telnet 10.129.14.128 25
@@ -298,3 +296,124 @@ set RHOST <ip_vícitma>
 run
 ```
 
+---
+**QUESTIONS**
+**Target: 10.129.42.195**
+**1. Enumerate the SMTP service and submit the banner, including its version as the answer.**
+
+Ejecutando un escaneo básico en nmap:
+```
+sudo nmap -sSV --open --min-rate 2000 -Pn -n 10.129.42.195 -vvv
+```
+
+Observo que están los siguientes puertos abiertos:
+```
+PORT     STATE SERVICE  REASON         VERSION
+22/tcp   open  ssh      syn-ack ttl 63 OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+25/tcp   open  smtp     syn-ack ttl 63
+53/tcp   open  domain   syn-ack ttl 63 ISC BIND 9.16.1 (Ubuntu Linux)
+110/tcp  open  pop3     syn-ack ttl 63 Dovecot pop3d
+143/tcp  open  imap     syn-ack ttl 63 Dovecot imapd
+993/tcp  open  ssl/imap syn-ack ttl 63 Dovecot imapd
+995/tcp  open  ssl/pop3 syn-ack ttl 63 Dovecot pop3d
+3306/tcp open  mysql    syn-ack ttl 63 MySQL 8.0.27-0ubuntu0.20.04.1
+```
+Atacaremos al servicio smtp, el cual corre por el puerto 25.
+
+Para obtener la cabecera del servicio, utilizaré:
+ ```
+nc -nv 10.129.42.195 25
+(UNKNOWN) [10.129.42.195] 25 (smtp) open
+220 InFreight ESMTP v2.11
+ ```
+Siendo la respuesta del ejercicio: *InFreight ESMTP v2.11*
+
+**2. Enumerate the SMTP service even further and find the username that exists on the system. Submit it as the answer.**
+**Nota añadida: en este ejercicio recomiendan utilizar la wordlist disponible en un recurso para descargar. Wordlist la cual contiene la palabra robin.
+
+Sabiendo que robin es la respuesta, voy a añadir al diccionario la palabra robin:
+```
+sudo nano /usr/share/metasploit-framework/data/wordlists/unix_users.txt
+```
+
+Con esto, vamos a probar numerar los usuarios con diferentes métodos: 
+1. `nmap --script smtp-enum-users.nse -p 25,465,587 <host>`
+	Ejecuto:
+```
+nmap --script smtp-enum-users.nse -p25 10.129.42.195
+```
+Y me encuentra estos usuarios:
+```
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-09-03 09:49 CDT
+Nmap scan report for 10.129.42.195
+Host is up (0.91s latency).
+
+PORT   STATE SERVICE
+25/tcp open  smtp
+| smtp-enum-users: 
+|   root
+|   admin
+|   administrator
+|   webadmin
+|   sysadmin
+|   netadmin
+|   guest
+|   user
+|   web
+|_  test
+```
+Los anoto.
+
+2. `smtp-user-enum -M VRFY -U /usr/share/metasploit-framework/data/wordlists /unix_users.txt -t <host> -w 120 -v`
+Probamos de ejecutar el comando:
+```
+smtp-user-enum -M VRFY -U /usr/share/metasploit-framework/data/wordlists/unix_users.txt -t 10.129.42.195 -w 120 -v
+```
+Y nos encuentra algunos usuarios existentes:
+```
+smtp-user-enum -M VRFY -U /usr/share/metasploit-framework/data/wordlists/unix_users.txt -t 10.129.42.195 -w 120 -v | grep "exists"
+10.129.42.195: robin exists
+10.129.42.195: _apt exists
+10.129.42.195: backup exists
+10.129.42.195: bin exists
+10.129.42.195: daemon exists
+...
+```
+Los anotamos.
+
+3. `msfconsole` + módulo `scanner/smtp/smtp_enum`
+Ejecutamos dicho módulo y nos lista los siguientes resultados:
+```
+
+```
+
+Con todo este listado de usuarios, tenemos que verificar que existan.
+Ejecutamos:
+```
+telnet 10.129.42.195 25
+```
+
+Y uno por uno los vamos introduciendo con el comando:
+```
+VRFY <nombre_usuario>
+```
+
+Siendo los únicos usuarios válidos que encontramos "root" y "robin":
+```
+Trying 10.129.42.195...
+Connected to 10.129.42.195.
+Escape character is '^]'.
+VRFY220 InFreight ESMTP v2.11
+ root
+252 2.0.0 root               <-------- [!] VÁLIDO
+VRFY admin
+550 5.1.1 <admin>: Recipient address rejected: User unknown in local recipient table
+VRFY webadmin
+550 5.1.1 <webadmin>: Recipient address rejected: User unknown in local recipient table
+VRFY robin
+252 2.0.0 robin              <-------- [!] VÁLIDO
+VRFY guest
+550 5.1.1 <guest>: Recipient address rejected: User unknown in local recipient table
+```
+
+Respuesta: *robin*
