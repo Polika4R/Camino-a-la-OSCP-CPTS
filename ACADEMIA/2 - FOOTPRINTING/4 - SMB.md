@@ -1,7 +1,6 @@
-
 # Protocolo SMB y Samba (Resumen para PYME)
 
-**SMB (Server Message Block)** es un protocolo cliente-servidor que permite:
+SMB (Server Message Block) es un protocolo cliente-servidor que permite:
 - Compartir archivos y carpetas.
 - Acceder a impresoras, routers u otros recursos de red.
 - Comunicación entre procesos de diferentes sistemas.
@@ -15,11 +14,6 @@
 - Utiliza **puerto TCP 445** para SMB directo (sin NetBIOS).
 - Permite controlar permisos con **Listas de Control de Acceso (ACLs)**.
   - ACLs independientes de los permisos locales del sistema de archivos.
-## Samba y CIFS
-
-- **Samba**: implementación de SMB para Unix/Linux.
-- Implementa el dialecto **CIFS** (Common Internet File System), basado en **SMB 1.0**.
-- Compatibilidad total con sistemas **Windows modernos**.
 
 ### Puertos utilizados
 
@@ -54,11 +48,10 @@
   - **NBNS** (NetBIOS Name Server).
   - **WINS** (Windows Internet Name Service).
 
-
-# Configuración predeterminada
+## Configuración predeterminada
 
 Samba ofrece una amplia gama de opciones de configuración. 
-Se definen mediante un archivo de texto ubicado en_
+Se definen mediante un archivo de texto ubicado en:
 ```shell-session
 Polika4RM@htb[/htb]$ cat /etc/samba/smb.conf
 ```
@@ -105,8 +98,7 @@ Polika4RM@htb[/htb]$ cat /etc/samba/smb.conf | grep -v "#\|\;"
 
 Vemos la configuración global y dos recursos compartidos destinados a impresoras. La configuración global corresponde a la configuración del servidor SMB disponible, que se utiliza para todos los recursos compartidos. Sin embargo, en los recursos compartidos individuales, la configuración global puede sobrescribirse, lo que puede ser incluso incorrecto. 
 
-#### Parámetros comunes en la configuración de Samba (`smb.conf`)
-
+#### Parámetros comunes en la configuración de Samba (smb.conf)
 A continuación se muestra una tabla con los parámetros más utilizados en la configuración de Samba, útil para compartir directorios en red:
 
 | **Configuración**                | **Descripción**                                                                 |
@@ -269,3 +261,98 @@ Polika4RM@htb[/htb]$ ./enum4linux-ng.py 10.129.14.128 -A
 ```
 
 
+**QUESTIONS**
+**Target: 10.129.244.49**
+**1. What version of the SMB server is running on the target system? Submit the entire banner as the answer.**
+Ejecuto escaneo básico de versión de servicois, con:
+```
+PORT     STATE SERVICE     VERSION
+21/tcp   open  ftp
+22/tcp   open  ssh         OpenSSH 8.2p1 Ubuntu 4ubuntu0.2 (Ubuntu Linux; protocol 2.0)
+111/tcp  open  rpcbind     2-4 (RPC #100000)
+139/tcp  open  netbios-ssn Samba smbd 4.6.2
+445/tcp  open  netbios-ssn Samba smbd 4.6.2
+2049/tcp open  nfs_acl     3 (RPC #100227)
+```
+
+El servicio SMB (corriendo por el puerto 445), utiliza una versión *Samba smbd 4.6.2*
+
+**2. What is the name of the accessible share on the target?**
+Ejecuto una numeración de recursos compartidos, y observo:
+```
+smbclient -N -L //10.129.244.49
+
+	Sharename       Type      Comment
+	---------       ----      -------
+	print$          Disk      Printer Drivers
+	sambashare      Disk      InFreight SMB v3.1
+	IPC$            IPC       IPC Service (InlaneFreight SMB server (Samba, Ubuntu))
+
+```
+
+Que el recurso compartido de denomina *sambashare*
+
+** 3. Connect to the discovered share and find the flag.txt file. Submit the contents as the answer.**
+Me conecto al recurso compartido con:
+```
+smbclient //10.129.244.49/sambashare
+Password for [WORKGROUP\htb-ac-1876550]:
+Try "help" to get a list of possible commands.
+smb: \> 
+```
+
+Como contraseña no introduzco nada (doy enter sin ningun texto). Dentro del servicio accedo a la carpeta "contents" con un *cd contents*, me descargo el archivo flag.txt con *get flag.txt* y haciendo un cat desde mi máquina Kali, observo que la flag es: *HTB{o873nz4xdo873n4zo873zn4fksuhldsf}*
+
+**4. Find out which domain the server belongs to.**
+Accedo al cliente rcp con el comando:
+```
+rpcclient -U "" 10.129.244.49
+```
+Ingreso una contraseña nula (le doy al enter sin escribir contraseña).
+Y ejecuto:
+```
+rpcclient $> querydominfo
+Domain:		DEVOPS
+Server:		DEVSMB
+Comment:	InlaneFreight SMB server (Samba, Ubuntu)
+Total Users:	0
+Total Groups:	0
+Total Aliases:	0
+Sequence No:	1756882846
+Force Logoff:	-1
+Domain Server State:	0x1
+Server Role:	ROLE_DOMAIN_PDC
+Unknown 3:	0x1
+```
+
+Siendo al respuesta al ejercicio el dominio: *DEVOPS*
+
+**5. Find additional information about the specific share we found previously and submit the customized version of that specific share as the answer.**
+
+Dentro del servicio RCP establecido en el ejercicio anterior, ejecuto:
+```
+rpcclient $> netsharegetinfo sambashare
+netname: sambashare
+	remark:	InFreight SMB v3.1
+	path:	C:\home\sambauser\
+	password:	
+	type:	0x0
+	perms:	0
+	max_uses:	-1
+	num_uses:	1
+revision: 1
+type: 0x8004: SEC_DESC_DACL_PRESENT SEC_DESC_SELF_RELATIVE 
+DACL
+	ACL	Num ACEs:	1	revision:	2
+	---
+	ACE
+		type: ACCESS ALLOWED (0) flags: 0x00 
+		Specific bits: 0x1ff
+		Permissions: 0x1f01ff: SYNCHRONIZE_ACCESS WRITE_OWNER_ACCESS WRITE_DAC_ACCESS READ_CONTROL_ACCESS DELETE_ACCESS 
+		SID: S-1-1-0
+```
+
+Siendo al respuesta del ejercicio *InFreight SMB v3.1*
+
+**5.  What is the full system path of that specific share? (format: "/directory/names")**
+En el mismo output anterior, veo que el path del recurso sambashare es */home/sambauser*

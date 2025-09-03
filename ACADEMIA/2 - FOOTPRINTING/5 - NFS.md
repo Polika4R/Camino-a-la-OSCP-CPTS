@@ -2,7 +2,7 @@
 
 ## Qué es NFS y cómo funciona
 
-**NFS** (Network File System) **es un protocolo** desarrollado por Sun Microsystems que **permite a los usuarios acceder y montar sistemas de archivos remotos a través de una red como si fueran locales**. A diferencia de SMB, que se utiliza principalmente en entornos Windows, NFS se emplea sobre todo entre sistemas Linux y Unix. 
+NFS (Network File System) **es un protocolo** desarrollado por Sun Microsystems que permite a los usuarios acceder y montar sistemas de archivos remotos a través de una red como si fueran locales. A diferencia de SMB, que se utiliza principalmente en entornos Windows, NFS se emplea sobre todo entre sistemas Linux y Unix. 
 
 Debido a que ambos protocolos son fundamentalmente diferentes, los clientes NFS **no pueden interactuar directamente con servidores SMB**.
 

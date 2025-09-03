@@ -1,10 +1,11 @@
+#ftp #p21
 ## Introducción al FTP
 
 Se utiliza para transferir archivos entre un cliente y un servidor, ya sea subiendo o descargando archivos.
-Para establecer una conexión FTP, se abren dos canales TCP:
 
-- **Canal de control** en el puerto 21, donde el cliente envía comandos y el servidor responde con códigos de estado.
-- **Canal de datos** en el puerto 20, exclusivo para la transferencia de archivos, con mecanismos para retomar la transferencia si se interrumpe.
+Para establecer una conexión FTP, se abren dos canales TCP:
+- Canal de control en el puerto 21, donde el cliente envía comandos y el servidor responde con códigos de estado.
+- Canal de datos en el puerto 20, exclusivo para la transferencia de archivos, con mecanismos para retomar la transferencia si se interrumpe.
 
 Existen dos modos de FTP:
 - **Activo:** el cliente inicia la conexión al puerto 21 y comunica al servidor el puerto cliente para la transferencia, pero los firewalls pueden bloquear la respuesta del servidor.
@@ -13,7 +14,6 @@ Existen dos modos de FTP:
 FTP utiliza varios comandos y códigos de estado para gestionar operaciones como subir, bajar, eliminar archivos o manejar directorios, aunque no todos los comandos son soportados por todos los servidores.
 
 Normalmente, FTP requiere credenciales, aunque algunos servidores permiten acceso anónimo con permisos limitados. Al ser un protocolo en texto claro, puede ser vulnerable a ataques de sniffing, lo que representa un riesgo de seguridad.
-
 ## TFTP (Trivial File Transfer Protocol)
 
 - **Capa**: Aplicación (UDP).
@@ -33,7 +33,6 @@ Normalmente, FTP requiere credenciales, aunque algunos servidores permiten acces
   - `quit`: salir de la sesión.
   - `status`: estado de la sesión y modo de transferencia.
   - `verbose`: activar/desactivar salida detallada.
-
 ## Comparativa entre FTP y TFTP
 
 | Característica        | FTP                     | TFTP                      |
@@ -45,8 +44,7 @@ Normalmente, FTP requiere credenciales, aunque algunos servidores permiten acces
 | Transferencias seguras| No (usa texto claro)    | No                       |
 | Uso típico            | Internet / redes LAN    | Solo redes locales seguras |
 | Listado de directorios| Sí                      | No                       |
-# vsFTPd
-
+### vsFTPd
 Uno de los servidores FTP más utilizados en distribuciones Linux es **vsFTPd**.
 
 La configuración por defecto de vsFTPd se encuentra en:
@@ -57,7 +55,7 @@ Se instala con:
 Polika4RM@htb[/htb]$ sudo apt install vsftpd 
 ```
 
-Si revisamos el archivo de configuración de vsFTPd, veremos muchas opciones y configuraciones comentadas o no. Sin embargo, el archivo de configuración no contiene todas las configuraciones posibles. Las existentes y las que faltan se pueden encontrar en la página de --help de vsFTPd
+Si revisamos el archivo de configuración de vsFTPd, veremos muchas opciones y configuraciones comentadas o no. Sin embargo, el archivo de configuración no contiene todas las configuraciones posibles. Las existentes y las que faltan se pueden encontrar en la página de --help de vsFTPd.
 
 Algunos parámetros a configurar son:
 
@@ -92,13 +90,10 @@ Los aparecientes en dicha lista no podrán hacer uso del protocolo.
 | `write_enable=YES`                | Permite comandos FTP de escritura: STOR, DELE, RNFR, RNTO, MKD, RMD, APPE. |
 
 ## Iniciar conexión como anónimo
-
 Simplemente me conecto al servicio con:
-
 ```
 ftp 1.2.3.4
 ```
-
 y cuando pida nombre de usuario escribo ***anonymous*.**
 
 
@@ -131,8 +126,6 @@ ftp> ls
 drwxrwxr-x    2 1002 1002 4096 Sep 14 17:03 Clients
 226 Directory send OK.
 ```
-
-
 
 #### Comando "trace"
 
@@ -292,4 +285,47 @@ El "documento.txt" se debe encontrar en el directorio desde donde se ha iniciado
 ftp> put /ruta/documento.txt
 ```
 
+
+---
+**QUESTIONS**
+**TARGET: 10.129.244.49 **
+**1.  Which version of the FTP server is running on the target system? Submit the entire banner as the answer.**
+
+Simplemente, ejecutando un:
+```
+nc -nv 10.129.244.49 21
+(UNKNOWN) [10.129.244.49] 21 (ftp) open
+220 InFreight FTP v1.1
+```
+Veo como la versión es: *InFreight FTP v1.1*
+
+**2. Enumerate the FTP server and find the flag.txt file. Submit the contents of it as the answer.**
+
+Haciendo un escaneo básico de nmap:
+```
+sudo nmap -sSCV --open --min-rate 2000 -vvv -Pn -n 10.129.244.49
+```
+, no observo nada interesante:
+```
+...
+PORT     STATE SERVICE     REASON         VERSION
+21/tcp   open  ftp         syn-ack ttl 63
+| fingerprint-strings: 
+|   GenericLines: 
+|     220 InFreight FTP v1.1
+|     Invalid command: try being more creative
+|_    Invalid command: try being more creative
+...
+```
+
+Ejecuto un:
+```
+ftp 10.129.244.49
+```
+
+Y pruebo las credenciales anónimas por defecto:
+anonymous:<texto_en_blanco>
+
+Y efectivamente, me deja entrar. Haciendo un "ls" encuentro la flag.txt.
+Me descargo la flag con un *get flag.txt*, salgo de la sesión de FTP con *exit*. Y desde mi máquina Kali puedo hacerle un *cat flag.txt* a dicha flag, siendo la respuesta:  *HTB{b7skjr4c76zhsds7fzhd4k3ujg7nhdjre}*
 
