@@ -120,6 +120,10 @@ Polika4RM@htb[/htb]$ mysql -u root -h 10.129.14.132
 ```
 
 - Conectarse a servidor MySQL con usuario y contraseña especifidada.
+```
+Polika4RM@htb[/htb]$ mysql -u root -p<contraseña> -h 10.129.14.128
+```
+
 ```shell-session
 Polika4RM@htb[/htb]$ mysql -u root -pP4SSw0rd -h 10.129.14.128
 ```

@@ -1,11 +1,8 @@
 
-# SNMP (Simple Network Management Protocol)
-
-## Función principal
-Protocolo estándar para **monitoreo y gestión remota** de dispositivos de red (routers, switches, servidores, IoT...).
+Protocolo estándar para monitoreo y gestión remota de dispositivos de red (routers, switches, servidores, IoT...).
 Se creó para supervisar dispositivos de red. Además, este protocolo también permite gestionar tareas de configuración y modificar ajustes de forma remota.
 
-## Versiones
+#### Versiones
 
 | Versión     | Características principales                                                                           |
 | ----------- | ----------------------------------------------------------------------------------------------------- |
@@ -15,14 +12,13 @@ Se creó para supervisar dispositivos de red. Además, este protocolo también p
 
 ## Community Strings
 
-- Actúan como **contraseñas** para acceder a la información SNMP.
-- En **v1/v2c** se envían en **texto plano** → pueden ser interceptadas.
+- Actúan como contraseñas para acceder a la información SNMP.
+- En v1/v2 se envían en texto plano → pueden ser interceptadas.
 - Muchas organizaciones siguen usando v2c por simplicidad, aunque es inseguro.
 
 ## Funcionamiento
-
-- Usa **UDP 161** para operaciones normales (get/set).
-- Usa **UDP 162** para **traps**: alertas enviadas del dispositivo al cliente sin solicitud.
+- Usa UDP 161 para operaciones normales (get/set).
+- Usa UDP 162 para traps alertas enviadas del dispositivo al cliente sin solicitud.
 - Permite:
   - Consultar información.
   - Cambiar configuraciones remotamente.
@@ -30,19 +26,19 @@ Se creó para supervisar dispositivos de red. Además, este protocolo también p
 
 ## MIB (Management Information Base)
 
-- Archivo de texto (.mib) en formato **ASN.1** que describe los objetos SNMP del dispositivo.
+- Archivo de texto (.mib) en formato ASN.1 que describe los objetos SNMP del dispositivo.
 - Contiene:
   - OID (Object Identifier)
   - Nombre del objeto
   - Tipo de dato
   - Permisos de acceso
   - Descripción
-- Es **esencial para interoperabilidad entre fabricantes**.
+- Es esencial para interoperabilidad entre fabricantes
 
 ## OID (Object Identifier)
 
 - Cadena de números separados por puntos → `.1.3.6.1.2.1...`
-- Representa una **ruta jerárquica** dentro del árbol MIB.
+- Representa una ruta jerárquica dentro del árbol MIB.
 - Cuanto más larga la cadena, más específica la información.
 - Pueden consultarse en el *Object Identifier Registry*.
 
@@ -142,9 +138,7 @@ Scanning 1 hosts, 3220 communities
 ## 3. braa
 
 - Herramienta alternativa para escanear servicios SNMP y enumerar información específica.
-    
 - Se usa para consultar OID individuales con una cadena de comunidad conocida.
-    
 ### Instalación y ejemplo de uso
 
 ```shell
@@ -168,11 +162,8 @@ braa public@10.129.14.128:.1.3.6.*
 # Resumen
 
 - **snmpwalk:** Ideal para explorar todos los datos SNMP disponibles.
-    
 - **onesixtyone:** Útil para descubrir _community strings_ mediante fuerza bruta.
-    
 - **braa:** Perfecto para enumerar información concreta con una cadena conocida.
-    
 
 ---------------
 
@@ -202,11 +193,9 @@ Veo como la versión es la:
 *iso.3.6.1.2.1.1.6.0 = STRING: **"InFreight SNMP v0.91"***
 
 
-
-
 **\[+1 CUBE ]  Enumerate the custom script that is running on the system and submit its output as the answer.**
 
-Haciendo un:
+Ejecutando un:
 ```
 snmpwalk -v2c -c public 10.129.224.247 | grep "flag.sh"
 ```
@@ -225,7 +214,6 @@ Ahora, ejecutando un:
 
 
 - Igual que antes, pero ahora la consulta se limita a partir del OID (identificador) `iso.3.6.1.2.1.25.1.7`.
-    
 - Esto significa que en lugar de recorrer todo el árbol SNMP, solo se obtiene la información relacionada a esa rama concreta.   He recortado parte del código original, pasando de:
 > 	iso.3.6.1.2.1.25.1.7.1.2.1.2.4.70.76.65.71 
 

@@ -382,10 +382,7 @@ smtp-user-enum -M VRFY -U /usr/share/metasploit-framework/data/wordlists/unix_us
 Los anotamos.
 
 3. `msfconsole` + módulo `scanner/smtp/smtp_enum`
-Ejecutamos dicho módulo y nos lista los siguientes resultados:
-```
-
-```
+Ejecutamos dicho módulo y nos lista otro conjunto de resultados.
 
 Con todo este listado de usuarios, tenemos que verificar que existan.
 Ejecutamos:
