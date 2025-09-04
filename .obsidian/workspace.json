@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ACADEMIA/8 - SHELLS & PAYLOADS/8 - Linux Shells.md",
+                "file": "ACADEMIA/8 - SHELLS & PAYLOADS/7 - Linux Shells.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "8 - Linux Shells"
+              "title": "7 - Linux Shells"
             }
           }
         ],
@@ -107,8 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 436.5,
-    "collapsed": true
+    "width": 436.5
   },
   "right": {
     "id": "5fcc821689c90239",
@@ -202,11 +201,13 @@
   },
   "active": "31f13033d824f0ba",
   "lastOpenFiles": [
-    "ACADEMIA/8 - SHELLS & PAYLOADS/7 - Windows Shells.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/8 - Linux Shells.md",
+    "ACADEMIA/8 - SHELLS & PAYLOADS/6 - Windows Shells.md",
+    "ACADEMIA/8 - SHELLS & PAYLOADS/5 - Creando Payloads con MSFvenom.md",
+    "ACADEMIA/8 - SHELLS & PAYLOADS/4. Payloads con Metasploit.md",
+    "ACADEMIA/8 - SHELLS & PAYLOADS/3 - Bind Shells.md",
+    "ACADEMIA/2 - FOOTPRINTING/7- SMTP.md",
+    "ACADEMIA/8 - SHELLS & PAYLOADS/7 - Linux Shells.md",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/1 - nmap.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/5. Payloads con Metasploit.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/6 - Creando Payloads con MSFvenom.md",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/2 - Footprinting --  FTP - SMB - NFS - DNS - SMTP - IMAP & POP3 - SNMP - MySQL - MSSQL - Oracle RDBMS - IPMI.md",
     "ACADEMIA/2 - FOOTPRINTING/10 - MySQL.md",
     "ACADEMIA/2 - FOOTPRINTING/9 - SNMP (Single Network Management Protocol).md",
@@ -226,8 +227,6 @@
     "ACADEMIA/1 - NETWORK ENUMERATION WITH NMAP/6 - Firewall and IDS-IPS Evasion - Easy Lab.md",
     "ACADEMIA/1 - NETWORK ENUMERATION WITH NMAP/5 - Evasion and IDS-IPS.md",
     "README.md",
-    "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/3 - Information Gathering - Web Edition.md",
-    "ACADEMIA/1 - NETWORK ENUMERATION WITH NMAP/4 - nmap scripting engine.md",
     "ACADEMIA/8 - SHELLS & PAYLOADS/images",
     "ACADEMIA/8 - SHELLS & PAYLOADS",
     "ACADEMIA/8 - SHELLS & PAYLOADS/images/Pasted image 20250826122242.png",
