@@ -28,7 +28,9 @@ Vamos a utilizar el:
 ```
 use exploit/linux/http/rconfig_ajaxarchivefiles_rce
 ```
-Establecemos el RHOST pertinente y lo lanzamos con un "run".
+Establecemos:
+- RPORT = <ip_máquina_víctima>
+- RPORT = 443
+OJO! Es muy importante establecer correctamente la IP de la máquina atacante, pues, la que trae por defecto el exploit no sirve.
 
-
-
+Una vez lanzado el exploit, capturamos 

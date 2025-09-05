@@ -8,49 +8,49 @@
         "type": "tabs",
         "children": [
           {
-            "id": "3ed7df43882286a0",
+            "id": "0ef2912f55c0088e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/1 - nmap.md",
+                "file": "ACADEMIA/8 - SHELLS & PAYLOADS/9 - Antak Webshell.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "1 - nmap"
+              "title": "9 - Antak Webshell"
             }
           },
           {
-            "id": "0adfa0d1d7d8f429",
+            "id": "a677b1feb2e22dd5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ACADEMIA/8 - SHELLS & PAYLOADS/7 - Windows Shells.md",
+                "file": "README.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "7 - Windows Shells"
+              "title": "README"
             }
           },
           {
-            "id": "31f13033d824f0ba",
+            "id": "eca544884a943bbf",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ACADEMIA/8 - SHELLS & PAYLOADS/7 - Linux Shells.md",
+                "file": "ACADEMIA/8 - SHELLS & PAYLOADS/8 -WEBSHELLS  - Laudanum.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "7 - Linux Shells"
+              "title": "8 -WEBSHELLS  - Laudanum"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -107,8 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 436.5,
-    "collapsed": true
+    "width": 436.5
   },
   "right": {
     "id": "5fcc821689c90239",
@@ -200,14 +199,20 @@
       "zk-prefixer:Crear nueva nota única": false
     }
   },
-  "active": "31f13033d824f0ba",
+  "active": "a677b1feb2e22dd5",
   "lastOpenFiles": [
+    "Sin título.md",
+    "ACADEMIA/8 - SHELLS & PAYLOADS/10 - PHP Web Shells.md",
+    "ACADEMIA/8 - SHELLS & PAYLOADS/9 - Antak Webshell.md",
+    "ACADEMIA/8 - SHELLS & PAYLOADS/8 -WEBSHELLS  - Laudanum.md",
+    "ACADEMIA/8 - SHELLS & PAYLOADS/images/Pasted image 20250905113526.png",
+    "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/A. WFUZZ - GOBUSTER - FFUF.md",
+    "ACADEMIA/8 - SHELLS & PAYLOADS/7 - Linux Shells.md",
     "ACADEMIA/8 - SHELLS & PAYLOADS/6 - Windows Shells.md",
     "ACADEMIA/8 - SHELLS & PAYLOADS/5 - Creando Payloads con MSFvenom.md",
     "ACADEMIA/8 - SHELLS & PAYLOADS/4. Payloads con Metasploit.md",
     "ACADEMIA/8 - SHELLS & PAYLOADS/3 - Bind Shells.md",
     "ACADEMIA/2 - FOOTPRINTING/7- SMTP.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/7 - Linux Shells.md",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/1 - nmap.md",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/2 - Footprinting --  FTP - SMB - NFS - DNS - SMTP - IMAP & POP3 - SNMP - MySQL - MSSQL - Oracle RDBMS - IPMI.md",
     "ACADEMIA/2 - FOOTPRINTING/10 - MySQL.md",
@@ -223,11 +228,6 @@
     "ACADEMIA/5 - INFORMATION GATHERING - WEB EDITION/4 - DNS tools.md",
     "ACADEMIA/5 - INFORMATION GATHERING - WEB EDITION/3 - DNS.md",
     "ACADEMIA/2 - FOOTPRINTING/1 - Información en Dominios.md",
-    "ACADEMIA/2 - FOOTPRINTING/1 - Principios y metodología de la enumeración.md",
-    "ACADEMIA/1 - NETWORK ENUMERATION WITH NMAP/7 - Firewall and IDS-IPS Evasion - Medium Lab.md",
-    "ACADEMIA/1 - NETWORK ENUMERATION WITH NMAP/6 - Firewall and IDS-IPS Evasion - Easy Lab.md",
-    "ACADEMIA/1 - NETWORK ENUMERATION WITH NMAP/5 - Evasion and IDS-IPS.md",
-    "README.md",
     "ACADEMIA/8 - SHELLS & PAYLOADS/images",
     "ACADEMIA/8 - SHELLS & PAYLOADS",
     "ACADEMIA/8 - SHELLS & PAYLOADS/images/Pasted image 20250826122242.png",
