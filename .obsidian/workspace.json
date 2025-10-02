@@ -41,12 +41,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ACADEMIA/8 - SHELLS & PAYLOADS/11 - The Live Engagement ANSWERS.md",
+                "file": "ACADEMIA/5 - FILE TRANSFERS/3 - Métodos de transferencia de archivos en Linux.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "11 - The Live Engagement ANSWERS"
+              "title": "3 - Métodos de transferencia de archivos en Linux"
+            }
+          },
+          {
+            "id": "ecd73b1086f8ff71",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "ACADEMIA/7 - USING THE METASPLOIT FRAMEWORK/1 - Introduction to Metasploit.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "1 - Introduction to Metasploit"
             }
           },
           {
@@ -64,7 +78,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -213,40 +227,42 @@
       "bases:Create new base": false
     }
   },
-  "active": "5adad14dd068766c",
+  "active": "ecd73b1086f8ff71",
   "lastOpenFiles": [
+    "README.md",
+    "ACADEMIA/7 - USING THE METASPLOIT FRAMEWORK/1 - Introduction to Metasploit.md",
+    "ACADEMIA/5 - FILE TRANSFERS/3 - Métodos de transferencia de archivos en Linux.md",
+    "ACADEMIA/7 - USING THE METASPLOIT FRAMEWORK/images",
+    "ACADEMIA/7 - USING THE METASPLOIT FRAMEWORK",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/11 - The Live Engagement ANSWERS.md",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/2 - Footprinting --  FTP - SMB - NFS - DNS - SMTP - IMAP & POP3 - SNMP - MySQL - MSSQL - Oracle RDBMS - IPMI.md",
     "ACADEMIA/2 - FOOTPRINTING/2 - SMB.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/11 - The Live Engagement ANSWERS.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/8 -WEBSHELLS  - Laudanum.md",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/8 -WEBSHELLS  - Laudanum.md",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/1 - nmap.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/11 - The Live Engagement.md",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/11 - The Live Engagement.md",
     "ACADEMIA/1 - NETWORK ENUMERATION WITH NMAP/1 - Apuntes nmap.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/10 - PHP Web Shells.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/7 - Linux Shells.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/6 - Windows Shells.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/5 - Creando Payloads con MSFvenom.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/4 - Payloads con Metasploit.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/3 - Bind Shells.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/2 - Funcionamiento de una SHELL.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/1 - Shells y Payloads en Seguridad Informática.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/9 - Antak Webshell.md",
-    "README.md",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/10 - PHP Web Shells.md",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/7 - Linux Shells.md",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/6 - Windows Shells.md",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/5 - Creando Payloads con MSFvenom.md",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/4 - Payloads con Metasploit.md",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/3 - Bind Shells.md",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/2 - Funcionamiento de una SHELL.md",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/1 - Shells y Payloads en Seguridad Informática.md",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/9 - Antak Webshell.md",
     "Sin título.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/images/Pasted image 20250905113526.png",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/images/Pasted image 20250905113526.png",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/A. WFUZZ - GOBUSTER - FFUF.md",
     "ACADEMIA/2 - FOOTPRINTING/7- SMTP.md",
     "ACADEMIA/2 - FOOTPRINTING/10 - MySQL.md",
     "ACADEMIA/2 - FOOTPRINTING/9 - SNMP (Single Network Management Protocol).md",
     "ACADEMIA/2 - FOOTPRINTING/8 - IMAP - POP3.md",
     "ACADEMIA/2 - FOOTPRINTING/5 - SMTP.md",
-    "ACADEMIA/2 - FOOTPRINTING/4 - DNS.md",
-    "ACADEMIA/1 - NETWORK ENUMERATION WITH NMAP/3 - Enumeración de servicios.md",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/images",
-    "ACADEMIA/8 - SHELLS & PAYLOADS",
-    "ACADEMIA/8 - SHELLS & PAYLOADS/images/Pasted image 20250826122242.png",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/images",
+    "ACADEMIA/6 - SHELLS & PAYLOADS",
+    "ACADEMIA/6 - SHELLS & PAYLOADS/images/Pasted image 20250826122242.png",
     "Road to CPTS - HTB/ACADEMIA/7 - File Transfers/images",
-    "ACADEMIA/7 - File Transfers",
+    "ACADEMIA/5 - FILE TRANSFERS",
     "Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Video/VID-20231123-WA0049.mp4",
     "Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Video/VID-20231127-WA0024.mp4",
     "Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Video/VID-20231124-WA0011.mp4"
