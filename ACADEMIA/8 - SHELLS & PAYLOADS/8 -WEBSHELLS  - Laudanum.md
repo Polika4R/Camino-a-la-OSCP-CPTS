@@ -16,12 +16,12 @@ Polika4RM@htb[/htb]$ cp /usr/share/laudanum/aspx/shell.aspx /home/tester/demo.as
 
 Las principales tecnologías de sitios web son:
 
-|Lenguaje/Plataforma|Extensión de archivo webshell|Comentario|
-|---|---|---|
-|ASP clásico|`.asp`|Servidores Windows antiguos con IIS.|
-|ASP.NET|`.aspx`|Windows moderno con IIS; muy usado en aplicaciones empresariales.|
-|JSP (Java)|`.jsp`|Servidores Java/Tomcat, típicos en aplicaciones corporativas Java.|
-|PHP|`.php`|Servidores Linux/Windows con PHP instalado; el más común en web pública.|
+| Lenguaje/Plataforma | Extensión de archivo webshell | Comentario                                                               |
+| ------------------- | ----------------------------- | ------------------------------------------------------------------------ |
+| ASP clásico         | `.asp`                        | Servidores Windows antiguos con IIS.                                     |
+| ASP.NET             | `.aspx`                       | Windows moderno con IIS; muy usado en aplicaciones empresariales.        |
+| JSP (Java)          | `.jsp`                        | Servidores Java/Tomcat, típicos en aplicaciones corporativas Java.       |
+| PHP                 | `.php`                        | Servidores Linux/Windows con PHP instalado; el más común en web pública. |
 
 Como modificaciones en este archivo, deberemos añadir nuestra IP (10.10.14.12) en la línea 59 del archivo demo.aspx.
 ```

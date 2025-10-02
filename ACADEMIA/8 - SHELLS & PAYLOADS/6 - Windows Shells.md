@@ -1,12 +1,9 @@
 
 Después de la enumeración de hosts, existen un seguido de métodos rápidos para saber si nos estamos enfrentando a una máquina windows.
-
 #### 1. TTL en ICMP
 Podemos hacer ping a un host y fijarnos en sus TTL (*TIME TO LIVE*)
 Este método es útil siempre y cuando el host esté a menos de 20 saltos. 
 Los valores más comunes de TTL son 32 y **128**
-
-
 #### 2. nmap y OS detection SCAN
 Con nmap, podemos hacer un escaneo de sistema operativo con el comando:
 ```shell-session
@@ -34,7 +31,6 @@ Siendo Windows 10 la máquina víctima.
 
 -------
 ## Banner Grab para enumerar puertos.
-
 Con el comando: 
 ```shell-session
 sudo nmap -v 192.168.86.39 --script banner.nse
@@ -42,9 +38,7 @@ sudo nmap -v 192.168.86.39 --script banner.nse
 Puedo leer las cabeceras de los servicios corriendo de una máquina. 
 
 -----
-
 # Herramientas, tácticas y procedimientos para la generación, transferencia y ejecución de PAYLOADS
-
 Metasploit y MSFVenom son formas muy útiles de generarPAYLOADS. 
 
 | **Recurso**                       | **Descripción**                                                                                                                                                                                                                                                                                                          |

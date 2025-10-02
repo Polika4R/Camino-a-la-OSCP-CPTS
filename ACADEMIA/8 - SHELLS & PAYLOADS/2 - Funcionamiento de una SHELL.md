@@ -2,7 +2,7 @@ Cada sistema operativo tiene una shell como mínimo para interactuar con él.
 Para utilizar una shell, deberemos contar con un "emulador de terminal".
 
 Estos son algunos de los que existen:
-  
+
 | **Emulador de terminal**                                       | **Operating System**     |
 | :------------------------------------------------------------- | :----------------------- |
 | [Windows Terminal](https://github.com/microsoft/terminal)      | Windows                  |
@@ -16,8 +16,6 @@ Estos son algunos de los que existen:
 | [Konsole](https://konsole.kde.org/)                            | Linux                    |
 | [Terminal](https://en.wikipedia.org/wiki/Terminal_\(macOS\))   | MacOS                    |
 | [iTerm2](https://iterm2.com/)                                  | MacOS                    |
-
-
 ## Intérpretes de Lenguaje de Comandos (CLI Interpreters):
 - Funcionan como un intérprete humano: traducen las instrucciones del usuario para que el sistema operativo las ejecute.
 - Una **interfaz de línea de comandos** combina tres elementos:

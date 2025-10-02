@@ -209,7 +209,6 @@ Ejecutamos:
 ```
 shell
 ```
-
 Para acceder a una terminal shell de windows y accedemos al directorio users/htb-student/documents. 
 En dicho directorio, se encuentra el archivo respuesta al ejercicio, llamado: *staffsalaries.txt*.
 

