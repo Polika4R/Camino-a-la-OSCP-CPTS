@@ -42,7 +42,8 @@ Para eliminar un proceso concreto.
 ### Cómo dejar una sesión en segundo plano (Meterpreter)
 
 1. Cuando estés en el prompt de **meterpreter**, escribe:
-```background
+```
+background  (o "bg")
 ```
 Eso devuelve el control a msfconsole y deja la sesión abierta en segundo plano.
 

