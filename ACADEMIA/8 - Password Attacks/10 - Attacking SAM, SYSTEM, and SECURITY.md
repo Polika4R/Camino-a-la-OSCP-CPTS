@@ -279,11 +279,11 @@ Contexto:
 Con acceso a credenciales con privilegios de administrador local, también es posible acceder a secretos LSA a través de la red. Esto nos permite extraer credenciales de servicios en ejecución, tareas programadas o aplicaciones que almacenan contraseñas mediante secretos LSA.
 #### Dumping LSA secrets remotamente
 
-LSA secrets (secretos de LSA):
-son datos que el servicio LSA (Local Security Authority) guarda en el sistema. Pueden ser contraseñas en texto plano, tokens, claves y otras credenciales que el sistema o aplicaciones necesitan
+Por una lado, estan los --lsa, que son contraseñas en texto plano:
+LSA secrets (secretos de LSA) son datos que el servicio LSA (Local Security Authority) guarda en el sistema. Pueden ser contraseñas en texto plano, tokens, claves y otras credenciales que el sistema o aplicaciones necesitan
 
-Existen dos métodos para conseguirlos:
-Por una lado, estan los --lsa, que son contarseñas en texto plano:
+
+
 ```shell-session
 Polika4RM@htb[/htb]$ netexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --lsa
 
