@@ -4,41 +4,43 @@
     "type": "split",
     "children": [
       {
-        "id": "8160f465b9ab6aec",
+        "id": "7257cd989a8421a9",
         "type": "tabs",
+        "dimension": 46.82034976152623,
         "children": [
           {
-            "id": "0babb500b43f885a",
+            "id": "17c9f2606d7acb2b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ACADEMIA/8 - Password Attacks/10 - Attacking SAM, SYSTEM, and SECURITY.md",
+                "file": "CHEATSHEET/SERVICIOS - ENUM Y ATAQUE/SMB.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "10 - Attacking SAM, SYSTEM, and SECURITY"
+              "title": "SMB"
             }
           }
         ]
       },
       {
-        "id": "d538a7169056fff0",
+        "id": "7d52b475c661802d",
         "type": "tabs",
+        "dimension": 53.17965023847376,
         "children": [
           {
-            "id": "60f46b02599e0199",
+            "id": "136bf13f43ac4f23",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ACADEMIA/8 - Password Attacks/11 - Attacking LSASS.md",
+                "file": "ACADEMIA/9 - ATTACKING COMMON SERVICES/4 - Atacando al servicio SMB.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "11 - Attacking LSASS"
+              "title": "4 - Atacando al servicio SMB"
             }
           }
         ]
@@ -98,8 +100,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 436.5,
-    "collapsed": true
+    "width": 471.5
   },
   "right": {
     "id": "5fcc821689c90239",
@@ -191,48 +192,51 @@
       "bases:Create new base": false
     }
   },
-  "active": "0babb500b43f885a",
+  "active": "4146937b44fab0f6",
   "lastOpenFiles": [
+    "CHEATSHEET/SERVICIOS - ENUM Y ATAQUE/FTP.md",
+    "CHEATSHEET/SERVICIOS - ENUM Y ATAQUE/SMB.md",
+    "ACADEMIA/9 - ATTACKING COMMON SERVICES/4 - Atacando al servicio SMB.md",
+    "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/2 - Footprinting --  FTP - SMB - NFS - DNS - SMTP - IMAP & POP3 - SNMP - MySQL - MSSQL - Oracle RDBMS - IPMI.md",
+    "ACADEMIA/9 - ATTACKING COMMON SERVICES/3 - Últimas vulnerabilidades FTP.md",
+    "ACADEMIA/9 - ATTACKING COMMON SERVICES/2 - FTP.md",
+    "ACADEMIA/9 - ATTACKING COMMON SERVICES/1 - Interacting with Common Services.md",
+    "CHEATSHEET/SERVICIOS - ENUM Y ATAQUE",
+    "CHEATSHEET/TERMINAL/LINUX.md",
+    "CHEATSHEET/TERMINAL/CMD & POWERSHELL.md",
+    "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/3 - Information Gathering - Web Edition.md",
+    "CHEATSHEET/TERMINAL",
+    "ACADEMIA/8 - Password Attacks/19 - Pass the Hash (PtH).md",
+    "ACADEMIA/9 - ATTACKING COMMON SERVICES/images",
+    "ACADEMIA/9 - ATTACKING COMMON SERVICES",
+    "ACADEMIA/8 - Password Attacks/18 - Credential Hunting in Network Shares.md",
+    "ACADEMIA/9 - Attacking common services/1 - Interacting with Common Services.md",
+    "ACADEMIA/9 - Attacking common services/images",
+    "ACADEMIA/9 - Attacking common services",
+    "ACADEMIA/8 - Password Attacks/17 - Credential Hunting in Network Traffic.md",
+    "ACADEMIA/8 - Password Attacks/images/Pasted image 20251011093503.png",
+    "ACADEMIA/8 - Password Attacks/images/Pasted image 20251011093400.png",
+    "ACADEMIA/8 - Password Attacks/16 - Credential Hunting in Linux.md",
+    "ACADEMIA/8 - Password Attacks/15 - Linux Authentication Process.md",
+    "ACADEMIA/8 - Password Attacks/12 - Attacking Windows Credential Manager (HARD).md",
+    "ACADEMIA/8 - Password Attacks/14 - Credential Hunting in Windows.md",
     "ACADEMIA/8 - Password Attacks/11 - Attacking LSASS.md",
     "ACADEMIA/8 - Password Attacks/10 - Attacking SAM, SYSTEM, and SECURITY.md",
+    "ACADEMIA/8 - Password Attacks/5 - Crackeando archivos protegidos.md",
     "ACADEMIA/5 - FILE TRANSFERS/2 - Métodos de transferencia de archivos de Windows.md",
-    "ACADEMIA/8 - Password Attacks/images/Pasted image 20251009103331.png",
     "ACADEMIA/5 - FILE TRANSFERS/3 - Métodos de transferencia de archivos en Linux.md",
     "ACADEMIA/5 - FILE TRANSFERS/1 - File transfers.md",
+    "ACADEMIA/8 - Password Attacks/13 - Attacking Active Directory and NTDS.dit.md",
+    "ACADEMIA/8 - Password Attacks/images/Pasted image 20251010114848.png",
+    "ACADEMIA/8 - Password Attacks/images/Pasted image 20251009103331.png",
     "ACADEMIA/8 - Password Attacks/9 - Windows authentication Process.md",
     "ACADEMIA/8 - Password Attacks/images/Pasted image 20251009075459.png",
-    "ACADEMIA/8 - Password Attacks/3 - HASHCAT.md",
     "ACADEMIA/8 - Password Attacks/images/Pasted image 20251008115447.png",
     "ACADEMIA/8 - Password Attacks/images",
-    "ACADEMIA/8 - Password Attacks/8 - Spraying, Stuffing, and Defaults.md",
-    "ACADEMIA/8 - Password Attacks/7 - Network services.md",
-    "CHEATSHEET/2 - EXPLOTACIÓN/1 - Metasploit.md",
-    "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/2 - Footprinting --  FTP - SMB - NFS - DNS - SMTP - IMAP & POP3 - SNMP - MySQL - MSSQL - Oracle RDBMS - IPMI.md",
-    "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/1 - nmap.md",
-    "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/A. WFUZZ - GOBUSTER - FFUF.md",
-    "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/3 - Information Gathering - Web Edition.md",
-    "CHEATSHEET/2 - EXPLOTACIÓN/Untitled.md",
-    "CHEATSHEET/2 - EXPLOTACIÓN",
-    "ACADEMIA/8 - Password Attacks/6 - Cracking Protected Archives.md",
-    "ACADEMIA/8 - Password Attacks/4 - Writing Custom Wordlists and Rules.md",
-    "ACADEMIA/8 - Password Attacks/5 - Crackeando archivos protegidos.md",
-    "ACADEMIA/8 - Password Attacks/2 - Introduction to John The Ripper.md",
-    "ACADEMIA/8 - Password Attacks/1 - Introduction to Password Cracking.md",
-    "README.md",
+    "CHEATSHEET/2 - ENUMERACIÓN Y EXPLOTACIÓN DE SERVICIOS RECURRENTES",
     "ACADEMIA/8 - Password Attacks",
-    "ACADEMIA/7 - USING THE METASPLOIT FRAMEWORK/6 - Meterpreter.md",
-    "ACADEMIA/7 - USING THE METASPLOIT FRAMEWORK/5 - Sessions.md",
-    "ACADEMIA/7 - USING THE METASPLOIT FRAMEWORK/4 - Payloads.md",
-    "ACADEMIA/7 - USING THE METASPLOIT FRAMEWORK/3 - Targets.md",
-    "ACADEMIA/7 - USING THE METASPLOIT FRAMEWORK/2 - Introduction to Metasploit 2.md",
     "ACADEMIA/7 - USING THE METASPLOIT FRAMEWORK/images",
-    "ACADEMIA/7 - USING THE METASPLOIT FRAMEWORK",
     "ACADEMIA/6 - SHELLS & PAYLOADS/images/Pasted image 20250905113526.png",
-    "ACADEMIA/6 - SHELLS & PAYLOADS/images",
-    "ACADEMIA/6 - SHELLS & PAYLOADS",
-    "ACADEMIA/6 - SHELLS & PAYLOADS/images/Pasted image 20250826122242.png",
-    "Road to CPTS - HTB/ACADEMIA/7 - File Transfers/images",
-    "ACADEMIA/5 - FILE TRANSFERS",
-    "Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Video/VID-20231123-WA0049.mp4"
+    "ACADEMIA/6 - SHELLS & PAYLOADS/images/Pasted image 20250826122242.png"
   ]
 }

