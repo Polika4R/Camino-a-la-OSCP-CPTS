@@ -57,8 +57,6 @@
 | `sudo nmap <target> --script <category>`          | Ejecuta scripts de una categoría específica | `--script vuln` para comprobar vulnerabilidades                      |
 | `sudo nmap <target> --script <script1>,<script2>` | Ejecuta scripts específicos por nombre      | Ver nombres en `/usr/share/nmap/scripts/`                            |
 | `ls /usr/share/nmap/scripts/`                     | Muestra todos los scripts disponibles       | Para conocer los nombres exactos                                     |
-
-
 **Categorías:**
 
 |**Categoría**|**Función principal**|
