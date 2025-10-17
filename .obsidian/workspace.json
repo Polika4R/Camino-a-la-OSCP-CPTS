@@ -4,39 +4,53 @@
     "type": "split",
     "children": [
       {
-        "id": "7257cd989a8421a9",
+        "id": "0def6c4f03f0d2ce",
         "type": "tabs",
         "children": [
           {
-            "id": "17c9f2606d7acb2b",
+            "id": "147e702ddb77eaa1",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ACADEMIA/9 - ATTACKING COMMON SERVICES/4 - Atacando al servicio SMB.md",
+                "file": "ACADEMIA/9 - ATTACKING COMMON SERVICES/5 - Atacando SQL Databases.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "4 - Atacando al servicio SMB"
+              "title": "5 - Atacando SQL Databases"
             }
           },
           {
-            "id": "85668044f5b5beb8",
+            "id": "59e278790b7d4e0e",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ACADEMIA/9 - ATTACKING COMMON SERVICES/5 - Attacking SQL Databases.md",
+                "file": "ACADEMIA/9 - ATTACKING COMMON SERVICES/6 - Atacando al servicio RDP.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "5 - Attacking SQL Databases"
+              "title": "6 - Atacando al servicio RDP"
+            }
+          },
+          {
+            "id": "ffe113617c2d0219",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "ACADEMIA/9 - ATTACKING COMMON SERVICES/7 - Atacando al servicio DNS.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "7 - Atacando al servicio DNS"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -69,7 +83,7 @@
               "type": "search",
               "state": {
                 "query": "",
-                "matchingCase": false,
+                "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
                 "extraContext": false,
@@ -93,8 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 471.5,
-    "collapsed": true
+    "width": 434.5
   },
   "right": {
     "id": "5fcc821689c90239",
@@ -186,14 +199,16 @@
       "bases:Create new base": false
     }
   },
-  "active": "85668044f5b5beb8",
+  "active": "ffe113617c2d0219",
   "lastOpenFiles": [
+    "ACADEMIA/9 - ATTACKING COMMON SERVICES/5 - Atacando SQL Databases.md",
+    "ACADEMIA/9 - ATTACKING COMMON SERVICES/4 - Atacando al servicio SMB.md",
+    "ACADEMIA/9 - ATTACKING COMMON SERVICES/6 - Atacando al servicio RDP.md",
+    "ACADEMIA/9 - ATTACKING COMMON SERVICES/7 - Atacando al servicio DNS.md",
     "Untitled.canvas",
     "2025-10-15.md",
-    "ACADEMIA/9 - ATTACKING COMMON SERVICES/5 - Attacking SQL Databases.md",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/A. WFUZZ - GOBUSTER - FFUF.md",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/1 - nmap.md",
-    "ACADEMIA/9 - ATTACKING COMMON SERVICES/4 - Atacando al servicio SMB.md",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/3 - Information Gathering - Web Edition.md",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/2 - Footprinting --  FTP - SMB - NFS - DNS - SMTP - IMAP & POP3 - SNMP - MySQL - MSSQL - Oracle RDBMS - IPMI.md",
     "CHEATSHEET/SERVICIOS - ENUM Y ATAQUE/SMB.md",
@@ -221,7 +236,6 @@
     "ACADEMIA/8 - Password Attacks/14 - Credential Hunting in Windows.md",
     "ACADEMIA/8 - Password Attacks/11 - Attacking LSASS.md",
     "ACADEMIA/8 - Password Attacks/10 - Attacking SAM, SYSTEM, and SECURITY.md",
-    "ACADEMIA/8 - Password Attacks/5 - Crackeando archivos protegidos.md",
     "ACADEMIA/8 - Password Attacks/images/Pasted image 20251010114848.png",
     "ACADEMIA/8 - Password Attacks/images/Pasted image 20251009103331.png",
     "ACADEMIA/8 - Password Attacks/images/Pasted image 20251009075459.png",
