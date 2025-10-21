@@ -114,4 +114,206 @@ Zone: success
                             '2001:67c:2e8:11::c100:1332',
 ...SNIP...
 ```
+---
 
+# Adquisiciones de dominios y enumeración de subdominios
+
+La toma de control de dominio (domain takeover) consiste en registrar un nombre de dominio inexistente para obtener el control sobre otro dominio. Si los atacantes encuentran un dominio expirado, pueden reclamarlo para realizar ataques adicionales, como alojar contenido malicioso en un sitio web o enviar correos de phishing utilizando el dominio reclamado.
+
+Imaginemos que una empresa tiene un dominio llamado **empresa.com**.  
+Dentro de ese dominio, puede haber subdominios como **blog.empresa.com** o **tienda.empresa.com**.
+
+Ahora bien:
+- Si el dominio **empresa.com** deja de pagarse o caduca, **cualquiera** puede volver a registrarlo.
+- Si un atacante lo registra, pasa a tener **control total** sobre ese dominio.
+- Con ese control, puede hacer cosas peligrosas, como:
+    - Crear una web falsa con aspecto legítimo.
+
+La toma de control de dominio también es posible con subdominios, lo que se conoce como toma de control de subdominio (subdomain takeover).
+Un registro CNAME (Canonical Name) de DNS se utiliza para mapear diferentes dominios hacia un dominio principal.
+Muchas organizaciones utilizan servicios de terceros como AWS, GitHub, Akamai, Fastly y otras redes de entrega de contenido (CDN) para alojar su contenido. 
+
+En estos casos, normalmente crean un subdominio y lo hacen apuntar a esos servicios. 
+Por ejemplo, “si buscas **sub.target.com**, en realidad ve a **anotherdomain.com**”.:
+```shell-session
+sub.target.com.   60   IN   CNAME   anotherdomain.com
+```
+
+El nombre de dominio (por ejemplo, **sub.target.com**) utiliza un registro **CNAME** que apunta a otro dominio (por ejemplo, **anotherdomain.com**).  
+Supongamos que **anotherdomain.com** caduca y queda disponible para que cualquiera lo registre.  
+Dado que el servidor DNS de **target.com** aún tiene el registro CNAME apuntando a ese dominio, **cualquiera que registre anotherdomain.com tendrá control total sobre sub.target.com** hasta que se actualice el registro DNS.
+
+---
+
+### Subdomain Enumeration
+
+Antes de realizar un subdomain takeover, deberíamos enumerar los subdominios del dominio objetivo usando herramientas como Subfinder. Esta herramienta puede raspar subdominios de fuentes abiertas como DNSdumpster. Otras herramientas, como Sublist3r, también pueden usarse para forzar por fuerza bruta subdominios proporcionando una lista de palabras (wordlist) pre-generada.
+
+```shell-session
+Polika4RM@htb[/htb]# ./subfinder -d inlanefreight.com -v       
+                                                                       
+        _     __ _         _                                           
+____  _| |__ / _(_)_ _  __| |___ _ _          
+(_-< || | '_ \  _| | ' \/ _  / -_) '_|                 
+/__/\_,_|_.__/_| |_|_||_\__,_\___|_| v2.4.5                                                                                                                                                                                                                                                 
+                projectdiscovery.io                    
+                                                                       
+[WRN] Use with caution. You are responsible for your actions
+[WRN] Developers assume no liability and are not responsible for any misuse or damage.
+[WRN] By using subfinder, you also agree to the terms of the APIs used. 
+                                   
+[INF] Enumerating subdomains for inlanefreight.com
+[alienvault] www.inlanefreight.com
+[dnsdumpster] ns1.inlanefreight.com
+[dnsdumpster] ns2.inlanefreight.com
+...snip...
+[bufferover] Source took 2.193235338s for enumeration
+ns2.inlanefreight.com
+www.inlanefreight.com
+ns1.inlanefreight.com
+support.inlanefreight.com
+[INF] Found 4 subdomains for inlanefreight.com in 20 seconds 11 milliseconds
+```
+
+Una excelente alternativa es la herramienta Subbrute. Esta herramienta nos permite automatizar la búsqueda de subdominios de un dominio concreto.
+```shell-session
+Polika4RM@htb[/htb]$ git clone https://github.com/TheRook/subbrute.git >> /dev/null 2>&1
+Polika4RM@htb[/htb]$ cd subbrute
+Polika4RM@htb[/htb]$ echo "ns1.inlanefreight.com" > ./resolvers.txt
+Polika4RM@htb[/htb]$ ./subbrute.py inlanefreight.com -s ./names.txt -r ./resolvers.txt
+
+Warning: Fewer than 16 resolvers per process, consider adding more nameservers to resolvers.txt.
+inlanefreight.com
+ns2.inlanefreight.com
+www.inlanefreight.com
+ms1.inlanefreight.com
+support.inlanefreight.com
+
+<SNIP>
+```
+
+Hemos encontrado 4 subdominios para el dominio "inlanefreight.htb".
+Podemos numerar los CNAME records (los archivos que indican a donde apunta cada subdominio). Lo haremos ejecutando:
+```shell-session
+Polika4RM@htb[/htb]# host support.inlanefreight.com
+
+support.inlanefreight.com is an alias for inlanefreight.s3.amazonaws.com
+```
+
+El subdominio de soporte tiene un registro de alias que apunta a un bucket de AWS S3. Sin embargo, la URL https\://support.inlanefreight.com muestra un error "NoSuchBucket", lo que indica que el subdominio es potencialmente vulnerable a una apropiación indebida. Ahora, podemos apropiarnos del subdominio creando un bucket de AWS S3 con el mismo nombre.
+
+El repositorio can-i-take-over-xyz también es una excelente referencia para vulnerabilidades de toma de control de subdominios. Indica si los servicios objetivo son vulnerables a una toma de control de subdominios y proporciona directrices para evaluar la vulnerabilidad.
+
+---
+
+# DNS spoofing
+Consiste en manipular entradas DNS legítimas para devolver direcciones falsas y redirigir tráfico a un servidor controlado por el atacante (también llamado DNS Cache Poisoning).
+
+Diferentes rutas de ataques podrían ser:
+- Ataque MITM (man in the middle):
+	  Un atacante puede interceptar la comunicación entre un usuario y un servidor DNS para enrutar al usuario a un destino fraudulento.
+- Una vulnerabilidad encontrada en un servidor DNS podría permitir que un atacante tome el control del servidor para modificar los registros DNS.
+
+### DNS Cache Poisoning
+Desde la perspectiva de una red local, un atacante también puede realizar envenenamiento de caché DNS utilizando herramientas MITM como [Ettercap](https://www.ettercap-project.org/) o [Bettercap](https://www.bettercap.org/) .
+
+Para explotar el envenenamiento de caché DNS a través de `Ettercap`, primero debemos editar el archivo `/etc/ettercap/etter.dns` para asignar el nombre de dominio de destino (por ejemplo, `inlanefreight.com`) que quieren falsificar y la dirección IP del atacante (por ejemplo, `192.168.225.110`) a la que quieren redirigir a un usuario:
+
+```shell-session
+Polika4RM@htb[/htb]# cat /etc/ettercap/etter.dns
+
+inlanefreight.com      A   192.168.225.110
+*.inlanefreight.com    A   192.168.225.110
+```
+
+A continuación, iniciamos la herramienta Ettercap para escanear hosts activos dentro de la red. Para ello, utilizaremos: `Hosts> Scan for Hosts.`
+
+- Ettercap permite seleccionar **dos objetivos** para lanzar el ataque MITM (Man-In-The-Middle).
+    - **Target1** = la **víctima** (la máquina a la que quieres engañar). Ej.: `192.168.152.129`.
+    - **Target2** = la **puerta de enlace** (gateway/router) de la red, o a veces otra máquina con la que la víctima se comunica. Ej.: `192.168.152.2`.
+
+- Al colocar a la víctima en Target1 y al gateway en Target2, Ettercap hará que **ambos** (víctima y gateway) crean que la IP del otro corresponde a la MAC del atacante. Eso sitúa al atacante en medio del flujo de tráfico.
+
+Dentro de `Plugins > Manage Plugins` activaremos la opción de dns_spoof.
+Esto envia a la máquina víctima falsas respuestas de resolución DNS que convertirá la petición inlanefreight.com a la IP 192.168.225.110.
+
+Después de un ataque de suplantación de DNS exitoso, si un usuario víctima que proviene de la máquina de destino 192.168.152.129 visita el dominio inlanefreight.com en un navegador web, será redirigido a una página falsa alojada en la dirección IP 192.168.225.110:![[etter_site.webp]]
+
+Además, un ping proveniente de la dirección IP víctima 192.168.152.129 a inlanefreight.com también debería resolverse en 192.168.225.110:
+```cmd-session
+C:\>ping inlanefreight.com
+
+Pinging inlanefreight.com [192.168.225.110] with 32 bytes of data:
+Reply from 192.168.225.110: bytes=32 time<1ms TTL=64
+Reply from 192.168.225.110: bytes=32 time<1ms TTL=64
+Reply from 192.168.225.110: bytes=32 time<1ms TTL=64
+Reply from 192.168.225.110: bytes=32 time<1ms TTL=64
+
+Ping statistics for 192.168.225.110:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+```
+
+---
+**Target:10.129.130.73
+**1. Find all available DNS records for the "inlanefreight.htb" domain on the target name server and submit the flag found as a DNS record as the answer.**
+
+
+Realizo un escaneo básico en nmap con:
+```
+nmap -sCV --open --min-rate 2000 -Pn -n 10.129.203.6
+```
+
+Y me devuelve un servicio DNS corriendo en el puert TCP53: 
+```
+53/tcp   open  domain      ISC BIND 9.16.1 (Ubuntu Linux)
+| dns-nsid: 
+|_  bind.version: 9.16.1-Ubuntu
+```
+Añado al /etc/host la dirección del target: 10.129.203.6
+
+Intento hacer una transferencia de zona con dicho servidor DNS pero esta se rechaza: 
+
+```
+dig AXFR @10.129.203.6 inlanefreight.htb
+
+; <<>> DiG 9.18.33-1~deb12u2-Debian <<>> AXFR @10.129.203.6 inlanfefreight.htb
+; (1 server found)
+;; global options: +cmd
+; Transfer failed.
+```
+
+Hacemos fuerza bruta de subdominios con "Subbrute":
+```
+Polika4RM@htb[/htb]$ git clone https://github.com/TheRook/subbrute.git >> /dev/null 2>&1
+Polika4RM@htb[/htb]$ cd subbrute
+Polika4RM@htb[/htb]$ echo "inlanefreight.htb" > ./resolvers.txt
+Polika4RM@htb[/htb]$ ./subbrute.py inlanefreight.com -s ./names.txt -r ./resolvers.txt
+
+inlanefreight.htb
+hr.inlanefreight.htb
+```
+
+Y encuentro este subdominio.
+
+Ejecuto finalmente una petición de zona de transferencia a:
+```
+dig AXFR @10.129.203.6 hr.inlanefreight.htb
+
+; <<>> DiG 9.18.33-1~deb12u2-Debian <<>> AXFR @10.129.203.6 hr.inlanefreight.htb
+; (1 server found)
+;; global options: +cmd
+hr.inlanefreight.htb.	604800	IN	SOA	inlanefreight.htb. root.inlanefreight.htb. 2 604800 86400 2419200 604800
+hr.inlanefreight.htb.	604800	IN	TXT	"HTB{LUIHNFAS2871SJK1259991}"
+hr.inlanefreight.htb.	604800	IN	NS	ns.inlanefreight.htb.
+ns.hr.inlanefreight.htb. 604800	IN	A	127.0.0.1
+hr.inlanefreight.htb.	604800	IN	SOA	inlanefreight.htb. root.inlanefreight.htb. 2 604800 86400 2419200 604800
+;; Query time: 3 msec
+;; SERVER: 10.129.203.6#53(10.129.203.6) (TCP)
+;; WHEN: Mon Oct 20 08:35:03 CDT 2025
+;; XFR size: 5 records (messages 1, bytes 230)
+
+```
+
+Y encuentro la flag / repuesta: "HTB{LUIHNFAS2871SJK1259991}"
