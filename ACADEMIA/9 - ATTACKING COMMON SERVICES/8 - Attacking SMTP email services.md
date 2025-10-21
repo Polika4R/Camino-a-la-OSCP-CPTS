@@ -279,7 +279,7 @@ Polika4RM@htb[/htb]$ python3 o365spray.py --enum -U users.txt --domain msplainte
 ---
 
 ### HYDRA para ataques de contraseñas
-Podemos utilizar Hydra para realizar un ataque de fuerza bruta ocntra las credenciales de un email server que utilice SMTP, POP3 o IMAP4.
+Podemos utilizar Hydra para realizar un ataque de fuerza bruta contra las credenciales de un email server que utilice SMTP, POP3 o IMAP4.
 
 Para encontrar usuarios y contraseñas válidas en un mail server, ejecutaré:
 ```shell-session

