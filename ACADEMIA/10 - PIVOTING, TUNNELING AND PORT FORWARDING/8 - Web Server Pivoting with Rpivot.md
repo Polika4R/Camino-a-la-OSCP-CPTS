@@ -24,6 +24,7 @@ Si la instalación de Python da error, se deberá descargar con:
 
 ```
 Polika4RM@htb[/htb]$ sudo apt-get install python2.7
+Polika4RM@htb[/htb]$ sudo apt-get install python2
 ```
 
 ```shell-session
@@ -115,16 +116,17 @@ git clone https://github.com/klsecservices/rpivot.git
 
 ```
 Polika4RM@htb[/htb]$ sudo apt-get install python2.7
+Polika4RM@htb[/htb]$ sudo apt-get install python2
 ```
 
 ```shell-session
-Polika4RM@htb[/htb]$ curl https://pyenv.run | bash
-Polika4RM@htb[/htb]$ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-Polika4RM@htb[/htb]$ echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-Polika4RM@htb[/htb]$ echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-Polika4RM@htb[/htb]$ source ~/.bashrc
-Polika4RM@htb[/htb]$ pyenv install 2.7
-Polika4RM@htb[/htb]$ pyenv shell 2.7
+curl https://pyenv.run | bash
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+source ~/.bashrc
+pyenv install 2.7
+pyenv shell 2.7
 ```
 
 
@@ -171,7 +173,7 @@ Me aseguro que el proxychains está bien seteado:
 
 En otra sesión de SHH aparte, ejecuto para ver la red interna:
 ```
-buntu@WEB01:~$ ip a
+ubuntu@WEB01:~$ ip a
 3: ens224: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
     link/ether 00:50:56:8a:14:19 brd ff:ff:ff:ff:ff:ff
     inet 172.16.5.129/23 brd 172.16.5.255 scope global ens224
@@ -181,9 +183,13 @@ buntu@WEB01:~$ ip a
 
 ```
 
-La cual es: 172.16.5.129/23
+Finalmente ejecuto:
+```
+proxychains curl -v 172.16.5.135
+```
 
-172.16.5.135 -p80
+Me descargo el contenido del archivo y lo copio en:
+https://htmledit.squarefree.com/
 
+Y al visualizar la página veo la flag: "I_L0v3_Pr0xy_Ch@ins"
 
-Desde el atacante ejecuto:
