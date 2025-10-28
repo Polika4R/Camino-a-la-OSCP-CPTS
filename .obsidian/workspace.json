@@ -4,41 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "2f6bcba44013f99e",
+        "id": "9102e4d2ce57e85e",
         "type": "tabs",
         "children": [
           {
-            "id": "dc3689d9d787bcc0",
+            "id": "e6e8a133da1a9b0a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/8 - Web Server Pivoting with Rpivot.md",
+                "file": "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/5 - Numeración inicial del dominio.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "8 - Web Server Pivoting with Rpivot"
-            }
-          }
-        ]
-      },
-      {
-        "id": "9e8dba0913af2915",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "d108ce29c6d78b49",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/12 - ICMP Tunneling con SOCKS.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "12 - ICMP Tunneling con SOCKS"
+              "title": "5 - Numeración inicial del dominio"
             }
           }
         ]
@@ -73,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "nslook",
                 "matchingCase": true,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -98,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 429.5
+    "width": 429.5,
+    "collapsed": true
   },
   "right": {
     "id": "5fcc821689c90239",
@@ -190,54 +171,53 @@
       "bases:Create new base": false
     }
   },
-  "active": "d108ce29c6d78b49",
+  "active": "e6e8a133da1a9b0a",
   "lastOpenFiles": [
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/8 - Web Server Pivoting with Rpivot.md",
+    "CHEATSHEET/5 - ACTIVE DIRECTORY/1 - Enumeración inicial.md",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/5 - Numeración inicial del dominio.md",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/responder-example 1.gif",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/responder-example.gif",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/ea-wireshark-mdns.webp",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/ea-wireshark.webp",
+    "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/3 - Information Gathering - Web Edition.md",
+    "CHEATSHEET/4 - Pivoting, Tunneling, and Port Forwarding/1 - SOCKS + PROXYCHAINS + SSH.md",
+    "CHEATSHEET/5 - ACTIVE DIRECTORY",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/4 - Principios de enumeración y reconocimiento Externo.md",
+    "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/2 - Footprinting --  FTP - SMB - NFS - DNS - SMTP - IMAP & POP3 - SNMP - MySQL - MSSQL - Oracle RDBMS - IPMI.md",
+    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/14 - Skills Assessment.md",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/3 - Escenario.md",
+    "ACADEMIA/99 - Pendientes de perfeccionar.md",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/Pasted image 20251028080539.png",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/Pasted image 20251028080252.png",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/Pasted image 20251028074819.png",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/scenario-email.webp",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/2 - Herramientas para trabajar con Active Directory.md",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/1 - Introducción a la Enumeración y Ataques en Active Directory.md",
+    "README.md",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS",
+    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/13 - RDP y SOCKS Tunneling con SocksOverRDP.md",
+    "LABS/EASY - BOARDLIGHT/BOARDLIGHT - WRITEUP PRM.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/12 - ICMP Tunneling con SOCKS.md",
+    "ACADEMIA/8 - PASSWORD ATTACKS/socksoverrdpdll.webp",
+    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/images/rdpsockspivot.webp",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/11 - SOCKS5 Tunneling with Chisel.md",
+    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/8 - Web Server Pivoting with Rpivot.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/9 - Port Forwarding with Windows Netsh.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/7 - Redirección con SOCAT y BindShell.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/5 - Meterpreter Tunneling & Port Forwarding.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/10 - DNS Tunneling con Dnscat2.md",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/images/88.webp",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/1 - nmap.md",
     "ACADEMIA/1 - NETWORK ENUMERATION WITH NMAP/1 - Apuntes nmap.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/3 - Dynamic Port Forwarding with SSH and SOCKS Tunneling.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/4 - Remote - Reverse Port Forwarding with SSH.md",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/6 - Redirección con SOCAT y ReverseShell.md",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/images/Pasted image 20251023162730.png",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/8 - SSH para Windows - plink.exe.md",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/images/Pasted image 20251023124909.png",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/images/Pasted image 20251023124720.png",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/images/Pasted image 20251023123342.png",
-    "ACADEMIA/5 - FILE TRANSFERS/2 - Métodos de transferencia de archivos de Windows.md",
-    "CHEATSHEET/4 - Pivoting, Tunneling, and Port Forwarding/1 - SOCKS + PROXYCHAINS + SSH.md",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/2 - La red detrás del Pivoting.md",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/images/44.webp",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/images/33.webp",
-    "CHEATSHEET/3 - Herramientas varias/1 - Metasploit.md",
     "CHEATSHEET/4 - Pivoting, Tunneling, and Port Forwarding/Untitled",
     "CHEATSHEET/4 - Pivoting, Tunneling, and Port Forwarding",
-    "CHEATSHEET/3 - Herramientas varias/2 - TERMINAL/LINUX.md",
-    "CHEATSHEET/3 - Herramientas varias/2 - TERMINAL/Comandos útiles Windows.md",
     "CHEATSHEET/3 - Herramientas varias",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/images/22.webp",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/images/11.webp",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/1 - Introducción al pivoting.md",
-    "ACADEMIA/9 - ATTACKING COMMON SERVICES/8 - Attacking SMTP email services.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/images",
-    "CHEATSHEET/2 - ENUMERACIÓN Y EXPLOTACIÓN DE SERVICIOS RECURRENTES/SMTP - p24,465,587.md",
-    "CHEATSHEET/2 - ENUMERACIÓN Y EXPLOTACIÓN DE SERVICIOS RECURRENTES/SMB - p445.md",
-    "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/2 - Footprinting --  FTP - SMB - NFS - DNS - SMTP - IMAP & POP3 - SNMP - MySQL - MSSQL - Oracle RDBMS - IPMI.md",
-    "CHEATSHEET/2 - ENUMERACIÓN Y EXPLOTACIÓN DE SERVICIOS RECURRENTES/RDP - p3389.md",
-    "ACADEMIA/9 - ATTACKING COMMON SERVICES/6 - Atacando al servicio RDP.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING",
-    "ACADEMIA/9 - ATTACKING COMMON SERVICES/images/SMTP-IMAP-1.webp",
     "Untitled.canvas",
     "CHEATSHEET/2 - ENUMERACIÓN Y EXPLOTACIÓN DE SERVICIOS RECURRENTES/SERVICIOS - ENUM Y ATAQUE",
-    "CHEATSHEET/3 - Herramientas varias/2 - TERMINAL",
-    "ACADEMIA/9 - ATTACKING COMMON SERVICES/images",
-    "ACADEMIA/9 - ATTACKING COMMON SERVICES",
-    "ACADEMIA/9 - Attacking common services/images"
+    "CHEATSHEET/3 - Herramientas varias/2 - TERMINAL"
   ]
 }
