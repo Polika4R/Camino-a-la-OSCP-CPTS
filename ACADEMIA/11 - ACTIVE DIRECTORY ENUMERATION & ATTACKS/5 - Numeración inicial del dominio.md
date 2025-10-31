@@ -129,8 +129,6 @@ sudo nmap -v -A -iL hosts.txt -oN /home/htb-student/Documents/host-enum
 
 La opción **`-iL`** le dice a **Nmap** que **lea los objetivos** (las direcciones IP o los nombres de host que quieres escanear) **desde un archivo** en lugar de especificarlos directamente en la línea de comandos.
 
-
-
 Como salida, obtenemos: 
 ```shell-session
 Nmap scan report for inlanefreight.local (172.16.5.5)
@@ -177,6 +175,7 @@ PORT     STATE SERVICE       VERSION
 Service Info: Host: ACADEMY-EA-DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
 ```
 
+## IMPORTANTÍSIMO!! IDENTIFICACIÓN DEL DOMAIN CONTROLLER:
 Nuestros análisis nos han proporcionado el estándar de nombres utilizado por NetBIOS y DNS. 
 Observamos que algunos hosts tienen RDP abierto y nos han indicado la dirección del controlador de dominio: INLANEFREIGHT.LOCAL (ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL). Los resultados a continuación muestran algunos resultados interesantes relacionados con un host posiblemente obsoleto (no incluido en nuestro laboratorio actual).
 

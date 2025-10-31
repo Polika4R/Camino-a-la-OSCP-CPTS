@@ -10,3 +10,7 @@
 | sudo nmap -v -A -iL <lista_hosts> -oN <ruta_guardado>           | Ejecuta un escaneo de red agresivo y detallado utilizando Nmap. -A (detección agresiva: OS, versión de servicio, scripts), -iL (lee objetivos de un archivo), -oN (guarda la salida normal en un archivo). Útil para el reconocimiento completo de hosts.                                                                         | sudo nmap -v -A -iL hosts.txt -oN /home/htb-student/Documents/host-enum<br>           |
 | kerbrute userenum -d <\DOMINIO> --dc <IP_DC> <archivo_usuarios> | Enumera usuarios válidos en Active Directory usando peticiones Kerberos (user enumeration). Envía solicitudes al controlador de dominio especificado (--dc) y reporta los nombres de usuario que existen. Herramienta rápida para descubrimiento de cuentas.                                                                      | kerbrute userenum -d INLANEFREIGHT.LOCAL --dc 172.16.5.5 jsmith.txt -o valid_ad_users |
 
+##### **IMPORTANTE**
+El **controlador de dominio (Domain Controller)** se identifica observando los servicios que ofrece un host.  
+En el escaneo Nmap, el equipo **ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL** con IP **172.16.5.5** muestra puertos característicos de un DC: **53 (DNS)**, **88 (Kerberos)**, **389/636 (LDAP/LDAPS)** y **3268/3269 (Global Catalog)**.  
+Estos servicios son esenciales para Active Directory, por lo que confirman que se trata del **Domain Controller** del dominio **INLANEFREIGHT.LOCAL**.
