@@ -8,31 +8,51 @@
         "type": "tabs",
         "children": [
           {
+            "id": "b6dfe412948ad2bf",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/7 - LLMNR NBT-NS Poisoning - desde Windows.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "7 - LLMNR NBT-NS Poisoning - desde Windows"
+            }
+          }
+        ]
+      },
+      {
+        "id": "a53d1c39dd97b86b",
+        "type": "tabs",
+        "children": [
+          {
             "id": "e6e8a133da1a9b0a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/5 - Numeración inicial del dominio.md",
+                "file": "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/7 - LLMNR NBT-NS Poisoning - desde Windows.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "5 - Numeración inicial del dominio"
+              "title": "7 - LLMNR NBT-NS Poisoning - desde Windows"
             }
           },
           {
-            "id": "3f6926f70c413c64",
+            "id": "2cdfd12706f47727",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/6 - LLMNR NBT-NS Poisoning - from Linux.md",
+                "file": "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/8 - Password Spraying.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "6 - LLMNR NBT-NS Poisoning - from Linux"
+              "title": "8 - Password Spraying"
             }
           }
         ],
@@ -185,11 +205,18 @@
       "bases:Create new base": false
     }
   },
-  "active": "3f6926f70c413c64",
+  "active": "2cdfd12706f47727",
   "lastOpenFiles": [
-    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/5 - Numeración inicial del dominio.md",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/7 - LLMNR NBT-NS Poisoning - desde Windows.md",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/8 - Password Spraying.md",
     "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/6 - LLMNR NBT-NS Poisoning - from Linux.md",
+    "inveigh_csharp.gif",
     "ACADEMIA/50 - Pendientes de perfeccionar.md",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/inveigh_pwsh.gif",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/Pasted image 20251030175926.png",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/responder_hashes.gif",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/5 - Numeración inicial del dominio.md",
+    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/4 - Principios de enumeración y reconocimiento Externo.md",
     "CHEATSHEET/5 - ACTIVE DIRECTORY/1 - Enumeración inicial.md",
     "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/responder-example 1.gif",
     "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/responder-example.gif",
@@ -198,15 +225,12 @@
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/3 - Information Gathering - Web Edition.md",
     "CHEATSHEET/4 - Pivoting, Tunneling, and Port Forwarding/1 - SOCKS + PROXYCHAINS + SSH.md",
     "CHEATSHEET/5 - ACTIVE DIRECTORY",
-    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/4 - Principios de enumeración y reconocimiento Externo.md",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/2 - Footprinting --  FTP - SMB - NFS - DNS - SMTP - IMAP & POP3 - SNMP - MySQL - MSSQL - Oracle RDBMS - IPMI.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/14 - Skills Assessment.md",
     "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/3 - Escenario.md",
     "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/Pasted image 20251028080539.png",
     "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/Pasted image 20251028080252.png",
-    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/Pasted image 20251028074819.png",
     "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images",
-    "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/images/scenario-email.webp",
     "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/2 - Herramientas para trabajar con Active Directory.md",
     "ACADEMIA/11 - ACTIVE DIRECTORY ENUMERATION & ATTACKS/1 - Introducción a la Enumeración y Ataques en Active Directory.md",
     "README.md",
@@ -214,8 +238,6 @@
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/13 - RDP y SOCKS Tunneling con SocksOverRDP.md",
     "LABS/EASY - BOARDLIGHT/BOARDLIGHT - WRITEUP PRM.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/12 - ICMP Tunneling con SOCKS.md",
-    "ACADEMIA/8 - PASSWORD ATTACKS/socksoverrdpdll.webp",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/images/rdpsockspivot.webp",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/11 - SOCKS5 Tunneling with Chisel.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/8 - Web Server Pivoting with Rpivot.md",
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/9 - Port Forwarding with Windows Netsh.md",
@@ -224,8 +246,6 @@
     "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/10 - DNS Tunneling con Dnscat2.md",
     "CHEATSHEET/1 - ENUMERACIÓN Y DESCUBRIMIENTO/1 - nmap.md",
     "ACADEMIA/1 - NETWORK ENUMERATION WITH NMAP/1 - Apuntes nmap.md",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/3 - Dynamic Port Forwarding with SSH and SOCKS Tunneling.md",
-    "ACADEMIA/10 - PIVOTING, TUNNELING AND PORT FORWARDING/4 - Remote - Reverse Port Forwarding with SSH.md",
     "CHEATSHEET/4 - Pivoting, Tunneling, and Port Forwarding/Untitled",
     "CHEATSHEET/4 - Pivoting, Tunneling, and Port Forwarding",
     "CHEATSHEET/3 - Herramientas varias",

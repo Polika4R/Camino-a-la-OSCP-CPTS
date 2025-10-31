@@ -66,7 +66,7 @@ sudo responder -I ens224 -A
 ![[responder-example 1.gif]]
 
 
-Al iniciar Responder con el modo de análisis pasivo habilitado, veremos el flujo de solicitudes en nuestra sesión. 
+Al iniciar Responder con el modo de análisis (- A) pasivo habilitado, veremos el flujo de solicitudes en nuestra sesión. 
 Encontramos también algunos HOSTS no encontrados previamente. Los anotaremos para crear una buena lista de IP y sus nombres de host DNS.
 
 ## FPING
